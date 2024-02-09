@@ -7,19 +7,28 @@ using SearchService.Services;
 namespace SearchService.Data;
 
 public class DbInitializer
-{
+{   
     public static async Task InitDb(WebApplication app)
     {
-        await DB.InitAsync("SearchDb", MongoClientSettings
-            .FromConnectionString(app.Configuration.GetConnectionString("MongoDbDefaultConnection")) );
+        var connStr = app.Configuration.GetConnectionString("MongoDbDefaultConnection");
+        using var scope = app.Services.CreateScope();
+        var getScopeServices = scope.ServiceProvider.GetRequiredService<AuctionServiceHttpClient>();
+        await SeedData(connStr, getScopeServices);
+    }
 
+
+    public static async Task SeedData(string cnctStr, AuctionServiceHttpClient context)
+    {   
+        
+                
+        await DB.InitAsync("SearchDb", MongoClientSettings.FromConnectionString(cnctStr)); 
         await DB.Index<Item>()
             .Key(x => x.Make, KeyType.Text)
             .Key(x => x.Model, KeyType.Text)
             .Key(x => x.Color, KeyType.Text)
             .CreateAsync();
 
-        var count = await DB.CountAsync<Item>();
+        // var count = await DB.CountAsync<Item>();
     //    if (count==0)
     //    {
     //         Console.WriteLine("no data - will attempt to seed");
@@ -27,15 +36,11 @@ public class DbInitializer
     //         var options = new JsonSerializerOptions {PropertyNameCaseInsensitive=true};
     //         var newitems = JsonSerializer.Deserialize<List<Item>>(itemData, options);
     //         await DB.SaveAsync(newitems);
-    //     }
-        using var scope = app.Services.CreateScope();
+    //     }        
 
-        var http_client = scope.ServiceProvider.GetRequiredService<AuctionServiceHttpClient>();
-
-        var items = await http_client.GetItemsForSearchDb();
+        var items = await context.GetItemsForSearchDb();
             
-        Console.WriteLine(items.Count + " returned from the auction server." );
-            
+        Console.WriteLine(items.Count + " returned from the auction server." );            
         
         if (items.Count > 0) 
         {
@@ -43,7 +48,6 @@ public class DbInitializer
             // var options = new JsonSerializerOptions {PropertyNameCaseInsensitive=true};
             // var items = JsonSerializer.Deserialize<List<Item>>(itemData, options);
             await DB.SaveAsync(items);
-
         }
     }
    

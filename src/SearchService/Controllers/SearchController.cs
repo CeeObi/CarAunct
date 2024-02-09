@@ -11,14 +11,15 @@ namespace SearchService.Controllers;
 public class SearchController : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<List<Item>>>SearchAllItems([FromQuery] SearchParams searchParams)
+    public async Task<ActionResult<List<Item>>>SearchAllItems([FromQuery] SearchParams searchParams) 
     {
         // var query = DB.Find<Item>();
         var query = DB.PagedSearch<Item, Item>();
         
         if (!string.IsNullOrEmpty(searchParams.SearchTerm))
-        {
-            query.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
+        {   
+            query.Match(x => x.Seller.ToLower()==searchParams.SearchTerm.ToLower() || x.Winner.ToLower()==searchParams.SearchTerm.ToLower() || x.Make.ToLower()==searchParams.SearchTerm.ToLower() || x.Mileage.ToString().ToLower()==searchParams.SearchTerm.ToLower()
+                        || x.Model.ToLower()==searchParams.SearchTerm.ToLower() || x.Color.ToLower()==searchParams.SearchTerm.ToLower() || x.Year.ToString().ToLower()==searchParams.SearchTerm.ToLower());
         }
 
         query = searchParams.OrderBy switch

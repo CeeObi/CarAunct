@@ -42,44 +42,61 @@ services:
       custom:
 
   #Building AuctionService from my local file location
-  auction-svc:
-    image: ceeobi/auction-svc:latest #We assign the image a name here
+  # auctn-svc:
+  #   image: ceeobi/auctn-svc:latest #We assign the image a name here
+  #   build:
+  #     context: .
+  #     dockerfile: src/AuctionService/Dockerfile
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development 
+  #     - ASPNETCORE_URLS=http://+:7777
+  #     - ASPNETCORE_URLS=http://+:80
+  #     - RabbitMq__Host=rabbitmq #Assigns the 'rabbitmq' container, above in docker to 'Host in RabbitMq in Configfile'
+  #     - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=passw0rd;Database=auctions #passw0rd!
+  #     - IdentityServiceUrl=http://identity-svc
+  #     - Kestrel__Endpoints__Grpc__Protocols=Http2
+  #     - Kestrel__Endpoints__Grpc__Url=http://+:7777
+  #     - Kestrel__Endpoints__WebApi__Protocols=Http1
+  #     - Kestrel__Endpoints__WebApi__Url=http://+:80
+  #   ports:
+  #     - 7001:80
+  #     - 7777:7777
+  #   networks:
+  #     custom:
+  #   depends_on: #Services above
+  #     - postgres
+  #     - rabbitmq     
+  
+  #Building AuctionService for Azure Container instance
+  auctn-svc:
+    image: ceeobi/auctn-svc:latest #We assign the image a name here
     build:
       context: .
       dockerfile: src/AuctionService/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development 
-      - ASPNETCORE_URLS=http://+:7777
+      - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - RabbitMq__Host=rabbitmq #Assigns the 'rabbitmq' container, above in docker to 'Host in RabbitMq in Configfile'
-      - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=passw0rd;Database=auctions #passw0rd!
+      - RabbitMq__Host=rabbitmq 
+      - ConnectionStrings__DefaultConnection=Server=auction-svice.postgres.database.azure.com;Database=postgres;Port=5432;User Id=postgres;Password=passw0rd!;Ssl Mode=Require;
       - IdentityServiceUrl=http://identity-svc
-      - Kestrel__Endpoints__Grpc__Protocols=Http2
-      - Kestrel__Endpoints__Grpc__Url=http://+:7777
-      - Kestrel__Endpoints__WebApi__Protocols=Http1
-      - Kestrel__Endpoints__WebApi__Url=http://+:80
     ports:
       - 7001:80
-      - 7777:7777
-    networks:
-      custom:
-    depends_on: #Services above
+    depends_on:
       - postgres
-      - rabbitmq     
+      - rabbitmq      
 
   #Building SearchService from my local file location
-  search-svc:
-    image: ceeobi/search-svc:latest 
+  srch-svc:
+    image: ceeobi/srch-svc:latest 
     build:
       context: .
       dockerfile: src/SearchService/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - RabbitMq__Host=rabbitmq
-      - ConnectionStrings__MongoDbDefaultConnection=mongodb://root:passw0rd@mongo
-      - IdentityServiceUrl=http://identity-svc
-      - AuctionServiceUrl:http://auction-svc
+      - RabbitMq__Host=20.70.230.153
+      - ConnectionStrings__MongoDbDefaultConnection=mongodb+srv://mongosvc:passw0rd!@mongo-svc.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000
+      - AuctionServiceUrl=http://4.147.25.51
     ports:
       - 7002:80
     networks:
@@ -98,7 +115,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=passw0rd;Database=identity
+      - ConnectionStrings__DefaultConnection=auction-svice.postgres.database.azure.com;Database=identity;Port=5432;User Id=postgres;Password=passw0rd!;Ssl Mode=Require;
       - VIRTUAL_HOST=id.carsbidi.com
       - ClientApp=http://app.carsbidi.com
     # ports:

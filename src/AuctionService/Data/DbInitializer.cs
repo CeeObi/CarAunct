@@ -9,15 +9,17 @@ public class DbInitializer
     public static void InitDb (WebApplication app)
     {
         using var scope = app.Services.CreateScope();
-        SeedData(scope.ServiceProvider.GetService<AuctionDbContext>()); //on initializing, it calls this seed method below with parameter 'scope' above
+        using var getScopeServices = scope.ServiceProvider.GetService<AuctionDbContext>();
+        
+        SeedData(getScopeServices); //on initializing, it calls this seed method below with parameter 'scope' above
     }
 
     private static void SeedData(AuctionDbContext context)
-    {
+    { 
 
         context.Database.Migrate(); //checks for unapplied migration and applies them. Also if no db at all, it creates it.
         
-        if (context.Auctions.Any())
+        if (context.Auctions.Any()) 
         {
             Console.WriteLine("Already have data - no need to seed");
             return;

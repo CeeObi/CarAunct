@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AuctionDbContext>(options =>
 });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddMassTransit(x =>
             {
                 x.AddEntityFrameworkOutbox<AuctionDbContext>(o =>
