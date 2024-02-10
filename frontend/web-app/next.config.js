@@ -3,6 +3,7 @@ const nextConfig = {
 //     experimental:{
 //         serverActions:true,
 //     },
+    output: "export",
     images:{
         domains: ["cdn.pixabay.com","media.istockphoto.com"]
     },
@@ -11,7 +12,7 @@ const nextConfig = {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL
     },
     reactStrictMode: false,
-    output: "export"
+    
 }
 
 module.exports = nextConfig

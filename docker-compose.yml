@@ -203,11 +203,11 @@ services:
     #   - id.carsbidi.com:10.5.0.200
     environment:
       - NEXTAUTH_SECRET=e85d99a51f44c3c0e67332b0f6d555189fc8d4cfd330ad992af9776ec2d37418
-      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_URL=http://10.210.106.62:10000 #http://localhost:3000
       - NEXTAUTH_URL_INTERNAL=http://web-app:3000
       - API_URL=http://20.70.255.99/
       - ID_URL=http://4.147.1.243/
-      - ID_REDIRECT_URL=http://localhost:3000/api/auth/callback/id-server
+      - ID_REDIRECT_URL=http://10.210.106.62:10000/api/auth/callback/id-server #http://localhost:3000
       # - ID_URL=http://identity-svc/
       - NEXT_PUBLIC_NOTIFY_URL=http://20.70.255.99/notifications #Fix notifications later
       # - VIRTUAL_HOST=app.carsbidi.com
