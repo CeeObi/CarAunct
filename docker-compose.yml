@@ -173,15 +173,15 @@ services:
       - rabbitmq 
   
   #Building NotifyService from my local file location
-  notify-svc:
-    image: ceeobi/notify-svc:latest 
+  notfy-svc:
+    image: ceeobi/notfy-svc:latest 
     build:
       context: .
       dockerfile: src/NotificationService/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - RabbitMq__Host=rabbitmq
+      - RabbitMq__Host=20.70.230.153
     ports:
       - 7004:80
     networks:
@@ -190,17 +190,17 @@ services:
       - rabbitmq 
 
   #Building Nextjs WebApp from the local file location
-  web-app:
-    image: ceeobi/carsbidi-web-app:latest
+  webap:
+    image: ceeobi/carsbidi-webap:latest
     build: 
       context: .
       dockerfile: frontend/web-app/Dockerfile
     volumes:
       - nxtwebdata:/var/lib/web/data
-    # ports:
-    #   - 3000:3000
-    extra_hosts:
-      - id.carsbidi.com:10.5.0.200
+    ports:
+      - 3000:3000
+    # extra_hosts:
+    #   - id.carsbidi.com:10.5.0.200
     environment:
       - NEXTAUTH_SECRET=e85d99a51f44c3c0e67332b0f6d555189fc8d4cfd330ad992af9776ec2d37418
       - NEXTAUTH_URL=http://localhost:3000
@@ -212,8 +212,8 @@ services:
       - NEXT_PUBLIC_NOTIFY_URL=http://20.70.255.99/notifications #Fix notifications later
       # - VIRTUAL_HOST=app.carsbidi.com
       # - VIRTUAL_PORT=3000
-    networks:
-      custom:
+    # networks:
+    #   custom:
 
   #Building NGINX proxy from online registry
   nginx-proxy:

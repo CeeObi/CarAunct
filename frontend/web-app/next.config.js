@@ -11,7 +11,7 @@ const nextConfig = {
         NEXTAUTH_URL: process.env.NEXTAUTH_URL
     },
     reactStrictMode: false,
-    output: "standalone"
+    output: "export"
 }
 
 module.exports = nextConfig

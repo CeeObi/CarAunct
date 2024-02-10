@@ -4,7 +4,7 @@ EXPOSE 80
 
 #copy all of the .csproj files and restore as distinct layer. Use of the same COPY command for every 
 #dockerfile in the project to take advantage of docker caching.
-COPY Carsbidi.sln Carsbidi.sln
+COPY CarAunct.sln CarAunct.sln
 COPY src/AuctionService/AuctionService.csproj src/AuctionService/AuctionService.csproj
 COPY src/SearchService/SearchService.csproj src/SearchService/SearchService.csproj
 COPY src/GatewayService/GatewayService.csproj src/GatewayService/GatewayService.csproj
@@ -14,7 +14,7 @@ COPY src/IdentityService/IdentityService.csproj src/IdentityService/IdentityServ
 COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
 
 #Restore the package dependencies
-RUN dotnet restore Carsbidi.sln
+RUN dotnet restore CarAunct.sln
 
 #Copy the app folders over
 COPY src/NotificationService src/NotificationService
