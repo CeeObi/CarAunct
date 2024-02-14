@@ -9,7 +9,7 @@ const authOptions : NextAuthOptions = {
 
     providers:[
         DuendeIdentityServer6({
-            id:"id-server", 
+            id:"id-server",  
             clientId: "nextApp",
             clientSecret: "secret",
             issuer: process.env.ID_URL,//Identity server url
