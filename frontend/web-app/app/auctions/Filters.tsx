@@ -69,7 +69,7 @@ function Filters() {
         <span className='uppercase text-sm text-gray-500 mr-2'>Page Size</span>  
         <ButtonGroup>
               {
-                  pageSizeButtons.map((val,indx) => <Button key={indx} className={` border-0 focus:ring-0 ${pageSize===val ? "bg-red-100" : "bg-gray-100"}`} color={pageSize===val ? "red" : "gray"} onClick={() => setParams({pageSize: val})}>{val}</Button> )
+                  pageSizeButtons.map((val,indx) => <Button key={indx} className={` border-0 focus:ring-0 ${pageSize===val ? "bg-green-100" : "bg-gray-100"}`} color={pageSize===val ? "green" : "gray"} onClick={() => setParams({pageSize: val})}>{val}</Button> )
               }
         </ButtonGroup> 
       </div>

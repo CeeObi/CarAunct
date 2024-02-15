@@ -36,7 +36,7 @@ function BidItem({bid}: Props) {
 
 
   return (
-    <div className={`border-gray-300 border-2 px-3 py-2 rounded-lg mb-2 flex justify-between items-center ${getBidInfo().bgColor}`}>
+    <div className={`border-gray-300 border-2 px-3 py-2 rounded-lg mb-2 flex justify-between items-center ${getBidInfo().bgColor} mx-2 lg:mx-0`}>
         <div className='flex flex-col'>
             <span className='capitalize'>Bidder: {bid.bidder}</span>
             <span className='text-gray-700 text-sm'>Time: {format( new Date(bid.bidTime), "dd MMM yyyy h:mm a")}</span>

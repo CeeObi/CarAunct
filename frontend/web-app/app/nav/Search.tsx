@@ -4,7 +4,11 @@ import { FaSearch } from 'react-icons/fa'
 import { useParamsStore } from '../hooks/useParamsStore'
 import { usePathname, useRouter } from 'next/navigation';
 
-function Search() {
+type Prop={
+    vizbility:string
+}
+
+function Search({vizbility}:Prop) {
     const {setParams, setSearchValue, searchValue} = useParamsStore((state) => state);
     const router = useRouter()    
     const pathname = usePathname()
@@ -19,9 +23,8 @@ function Search() {
         if (pathname != "/") {router.push("/")}
     }
 
-
   return (
-    <div className='flex w-[50%] items-center border-2 rounded-full py-2 shadow-sm'>
+    <div className={`flex items-center border-2 rounded-full py-2 shadow-sm ${vizbility}`}>
         <input type="text" placeholder='search for cars by make, model or color..' 
             value={searchValue}
             onKeyDown={handleSearch}

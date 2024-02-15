@@ -29,7 +29,7 @@ async function Details({params}: {params: {id : string}}) {
           <CountdownTimer auctionEnd={data.auctionEnd} />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-6 mt-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-3">
         <div className="w-full bg-gray-200 aspect-h-10 aspect-w-16 rounded-lg overflow-hidden"><CarImage imgUrl={data.imageUrl} /></div>
           <BidList user={user} auction={data} />
         </div>
