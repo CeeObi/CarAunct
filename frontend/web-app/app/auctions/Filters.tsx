@@ -48,16 +48,16 @@ function Filters() {
 
 
   return (
-    <div className='flex justify-between items-center mb-4'>
-      <div>
-        <span className='uppercase text-sm text-gray-500 mr-2'>Filter by</span>
+    <div className='lg:flex lg:justify-between items-center mb-4'>
+    <div className="mb-2 lg:mb-0 mx-2 xl:mx-0">
+      <span className='uppercase text-sm text-gray-500 mr-2'>Filter by </span>
         <ButtonGroup>
             {
                 filterButtons.map(({label, icon:Icon, value}) =><Button key={value} className={` border-0 focus:ring-0 ${filterBy===value ? "bg-green-100" : "bg-gray-100"}`} color={filterBy===value ? "green" : "gray"} onClick={() => setParams({filterBy: value})}><Icon className='mr-2 h-4 w-4'/>{label}</Button> )
             }
         </ButtonGroup> 
       </div>
-      <div>
+      <div className="mb-2 lg:mb-0 mx-2 xl:mx-0">
         <span className='uppercase text-sm text-gray-500 mr-2'>Order by</span>
         <ButtonGroup>
             {
@@ -65,12 +65,12 @@ function Filters() {
             }
         </ButtonGroup> 
       </div>
-      <div>
+      <div className="mb-2 lg:mb-0 mx-2 xl:mx-0">
         <span className='uppercase text-sm text-gray-500 mr-2'>Page Size</span>  
         <ButtonGroup>
-            {
-                pageSizeButtons.map((val,indx) => <Button key={indx} className='focus:ring-0' color={pageSize===val ? "green" : "gray"} onClick={() => setParams({pageSize: val})}>{val}</Button> )
-            }
+              {
+                  pageSizeButtons.map((val,indx) => <Button key={indx} className={` border-0 focus:ring-0 ${pageSize===val ? "bg-red-100" : "bg-gray-100"}`} color={pageSize===val ? "red" : "gray"} onClick={() => setParams({pageSize: val})}>{val}</Button> )
+              }
         </ButtonGroup> 
       </div>
     </div>
