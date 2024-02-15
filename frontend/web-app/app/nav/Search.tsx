@@ -25,10 +25,10 @@ function Search() {
         <input type="text" placeholder='search for cars by make, model or color..' 
             value={searchValue}
             onKeyDown={handleSearch}
-            onChange={onChange}
+            onChange={onChange} 
             className='input-custom text-sm text-gray-600' 
         />
-        <button onClick={handleSearch}><FaSearch size={34} className='bg-red-400 text-white rounded-full p-2 cursor-pointer mx-2'/></button>
+        <button onClick={handleSearch}><FaSearch size={34} className='bg-green-400 text-white rounded-full p-2 cursor-pointer mx-2'/></button>
     </div>
   )
 }

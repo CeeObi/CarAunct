@@ -53,7 +53,7 @@ function Filters() {
         <span className='uppercase text-sm text-gray-500 mr-2'>Filter by</span>
         <ButtonGroup>
             {
-                filterButtons.map(({label, icon:Icon, value}) =><Button key={value} className={` border-0 focus:ring-0 ${filterBy===value ? "bg-red-100" : "bg-gray-100"}`} color={filterBy===value ? "red" : "gray"} onClick={() => setParams({filterBy: value})}><Icon className='mr-2 h-4 w-4'/>{label}</Button> )
+                filterButtons.map(({label, icon:Icon, value}) =><Button key={value} className={` border-0 focus:ring-0 ${filterBy===value ? "bg-green-100" : "bg-gray-100"}`} color={filterBy===value ? "green" : "gray"} onClick={() => setParams({filterBy: value})}><Icon className='mr-2 h-4 w-4'/>{label}</Button> )
             }
         </ButtonGroup> 
       </div>
@@ -61,7 +61,7 @@ function Filters() {
         <span className='uppercase text-sm text-gray-500 mr-2'>Order by</span>
         <ButtonGroup>
             {
-                orderButtons.map(({label, icon:Icon, value}) =><Button key={value} className={` border-0 focus:ring-0 ${orderBy===value ? "bg-red-100" : "bg-gray-100"}`} color={orderBy===value ? "red" : "gray"} onClick={() => setParams({orderBy: value})}><Icon className='mr-2 h-4 w-4'/>{label}</Button> )
+                orderButtons.map(({label, icon:Icon, value}) =><Button key={value} className={` border-0 focus:ring-0 ${orderBy===value ? "bg-green-100" : "bg-gray-100"}`} color={orderBy===value ? "green" : "gray"} onClick={() => setParams({orderBy: value})}><Icon className='mr-2 h-4 w-4'/>{label}</Button> )
             }
         </ButtonGroup> 
       </div>
@@ -69,7 +69,7 @@ function Filters() {
         <span className='uppercase text-sm text-gray-500 mr-2'>Page Size</span>  
         <ButtonGroup>
             {
-                pageSizeButtons.map((val,indx) => <Button key={indx} className='focus:ring-0' color={pageSize===val ? "red" : "gray"} onClick={() => setParams({pageSize: val})}>{val}</Button> )
+                pageSizeButtons.map((val,indx) => <Button key={indx} className='focus:ring-0' color={pageSize===val ? "green" : "gray"} onClick={() => setParams({pageSize: val})}>{val}</Button> )
             }
         </ButtonGroup> 
       </div>

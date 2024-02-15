@@ -25,7 +25,7 @@ function AuctionCard({auction}:Props) {
             </div>        
           </div>
       </div>
-      <div className="flex justify-between items-center mt-4 bg-gray-100">
+      <div className="flex justify-between items-center mt-2 bg-gray-100 px-2 rounded-sm">
             <h3 className="text-gray-700">{auction.make}, {auction.model}</h3>
             <p className="font-semibold text-sm">{auction.year}</p>
       </div>      
