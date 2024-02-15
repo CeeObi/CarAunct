@@ -5,7 +5,7 @@ const nextConfig = {
 //     },
     output: "standalone",
     images:{
-        domains: ["cdn.pixabay.com","media.istockphoto.com"]
+        domains: ["cdn.pixabay.com","media.istockphoto.com","carma.com.au","carsales.pxcrush.net"]
     },
     env:{
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET, //Need to make this acces from the .env file later

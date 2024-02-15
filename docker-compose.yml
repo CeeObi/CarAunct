@@ -78,9 +78,14 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - RabbitMq__Host=rabbitmq 
       - ConnectionStrings__DefaultConnection=Server=auction-svice.postgres.database.azure.com;Database=postgres;Port=5432;User Id=postgres;Password=passw0rd!;Ssl Mode=Require;
-      - IdentityServiceUrl=http://identity-svc
+      - IdentityServiceUrl=http://identity-svc #Todo: replace use identity svc instead.
+      - Kestrel__Endpoints__Grpc__Protocols=Http2
+      - Kestrel__Endpoints__Grpc__Url=http://+:7777
+      - Kestrel__Endpoints__WebApi__Protocols=Http1
+      - Kestrel__Endpoints__WebApi__Url=http://+:80
     ports:
       - 7001:80
+      - 7777:7777
     depends_on:
       - postgres
       - rabbitmq      
@@ -152,25 +157,25 @@ services:
       custom:
 
   #Building BiddingService from my local file location
-  bid-svc:
-    image: ceeobi/bid-svc:latest 
+  bd-svc:
+    image: ceeobi/bd-svc:latest 
     build:
       context: .
       dockerfile: src/BiddingService/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - RabbitMq__Host=rabbitmq
-      - ConnectionStrings__BidDbConnection=mongodb://root:passw0rd@mongo
-      - IdentityServiceUrl=http://identity-svc
-      - GrpcAuction:http://host.docker.internal:7777
+      - RabbitMq__Host=20.70.230.153
+      - ConnectionStrings__BidDbConnection=mongodb+srv://bidmongodb:passw0rd!@bidmongodb.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000
+      - IdentityServiceUrl=http://20.92.178.220
+      - GrpcAuction:http://4.147.63.246:7777 #Todo: replace use auction svc with 777port instead.
     ports:
       - 7003:80
-    networks:
-      custom:
-    depends_on:
-      - mongo
-      - rabbitmq 
+    # networks:
+    #   custom:
+    # depends_on:
+    #   - mongo
+    #   - rabbitmq 
   
   #Building NotifyService from my local file location
   notfy-svc:
@@ -206,7 +211,7 @@ services:
       - NEXTAUTH_SECRET=e85d99a51f44c3c0e67332b0f6d555189fc8d4cfd330ad992af9776ec2d37418
       - NEXTAUTH_URL=https://carsbidi.onrender.com
       - NEXTAUTH_URL_INTERNAL=https://carsbidi.onrender.com:3000
-      - API_URL=http://20.70.255.99/
+      - API_URL=http://20.227.6.135/
       - ID_URL=http://20.92.178.220
       - ID_REDIRECT_URL=https://carsbidi.onrender.com/api/auth/callback/id-server
       - NEXT_PUBLIC_NOTIFY_URL=http://20.70.255.99/notifications 

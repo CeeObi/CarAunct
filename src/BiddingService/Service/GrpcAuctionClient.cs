@@ -27,7 +27,7 @@ public class GrpcAuctionClient //: GrpcAuction.GrpcAuctionBase is for the server
             try
             {
                 var reply = await client.GetAuctionAsync(request);///Error line
-                _logger.LogInformation("RAN COMPLETED THROUGH TEST");
+                _logger.LogInformation("RUN COMPLETED THROUGH TEST");
 
                 var auction = new Auction{
                     ID = reply.Auction.Id,

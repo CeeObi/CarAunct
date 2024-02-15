@@ -20,6 +20,6 @@ message GrpcAuctionModel{
     int32 ReservePrice = 4;
 }
 
-message GrpcAuctionResponse{
+message GrpcAuctionResponse{ 
     GrpcAuctionModel Auction = 1;
 }
