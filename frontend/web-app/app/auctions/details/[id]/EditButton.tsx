@@ -9,7 +9,7 @@ type Props = {
 
 function EditButton({id} : Props) {
   return (
-    <Button outline className="p-1 lg:p-2">
+    <Button outline>
         <Link href={`/auctions/update/${id}`}> Update Auction</Link>
     </Button>
   )
