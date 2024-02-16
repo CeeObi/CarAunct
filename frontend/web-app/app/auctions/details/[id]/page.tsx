@@ -18,14 +18,14 @@ async function Details({params}: {params: {id : string}}) {
     <div>
       <div className='flex justify-between'>
         <div className='flex items-center gap-3'>
-          <Headings title={`${data.make} ${data.model}`} />
-          {user?.username == data.seller && <>
-           <EditButton id={params.id} />
-           <DeleteButton id={params.id} />
+          <Headings title={`${data.make}, ${data.model}`} />
+            {user?.username == data.seller && <>
+              <EditButton id={params.id} />
+              <DeleteButton id={params.id} />
            </>}
         </div>
-        <div className='flex gap-3'>
-          <h3 className="text-2xl font-semibold">Time remaining:</h3>
+        <div className='hidden md:flex gap-3'>
+          <h3 className="text-md  sm:text-2xl font-semibold">Time Remaining:</h3>
           <CountdownTimer auctionEnd={data.auctionEnd} />
         </div>
       </div>

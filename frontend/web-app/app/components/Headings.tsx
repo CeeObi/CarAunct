@@ -10,8 +10,8 @@ type Props = {
 function Headings({title,subtitle,center}: Props) {
   return (
     <div className={center ? "text-center" : "text-start"}>
-        <div className="text-2xl font-bold">{title}</div>
-        <div className="font-light text-neutral-500 mt-2">{subtitle}</div>
+        <div className="text-md  sm:text-2xl font-bold">{title}</div>
+        <div className="text-sm md:text-lg font-light text-neutral-500 mt-2">{subtitle}</div>
     </div>
   )
 }
