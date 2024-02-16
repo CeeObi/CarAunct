@@ -69,7 +69,7 @@ function AuctionForm({auction}:Props) {
             </> 
         }
         <div className='flex justify-between'>
-            <Button outline color='gray'>Cancel</Button>
+            <Button onClick={()=>router.push("/")} outline color='gray'>Cancel</Button>
             <Button type='submit' outline disabled={!isValid} isProcessing={isSubmitting} color='success'>Submit</Button>
         </div>
     </form>
