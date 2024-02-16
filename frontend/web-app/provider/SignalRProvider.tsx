@@ -20,7 +20,7 @@ function SignalRProvider({children, user}:Props) {
     const [connection, setConnection] = useState<HubConnection | null>(null);
     const {setCurrentPrice} = useActionStore((state) => state);
     const {addBid} = useBidStore((state) => state)
-    const apiUrl = process.env.NODE_ENV === "production" ? "https://api.carsbidi.com/notifications" : process.env.NEXT_PUBLIC_NOTIFY_URL!
+    const apiUrl = process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_NOTIFY_URL! : "https://api.carsbidi.com/notifications"
 
     useEffect(()=>{
         const newConnection = new HubConnectionBuilder().withUrl(apiUrl).withAutomaticReconnect().build();
