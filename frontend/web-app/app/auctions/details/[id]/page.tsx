@@ -16,6 +16,10 @@ async function Details({params}: {params: {id : string}}) {
 
   return (
     <div>
+      <div className='flex gap-3 mb-5 bg-slate-100 mt-0 md:hidden align-middle justify-center'>
+        <h3 className="text-md  sm:text-2xl font-semibold mb-0 pb-0">Time Remaining:</h3>
+        <CountdownTimer auctionEnd={data.auctionEnd} />
+      </div>
       <div className='flex justify-between'>
         <div className='flex items-center gap-3'>
           <Headings title={`${data.make}, ${data.model}`} />
