@@ -2,8 +2,19 @@ using MassTransit;
 using Microsoft.AspNetCore.SignalR;
 using NotificationService;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy  =>
+                      {
+                          policy.WithOrigins("https://carsbidi.onrender.com/");
+                      });
+});
+
 builder.Services.AddMassTransit(x =>
             {
                 x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
@@ -21,7 +32,7 @@ builder.Services.AddMassTransit(x =>
                 });
             });
  
-
+ 
 builder.Services.AddSignalR();
 
 
