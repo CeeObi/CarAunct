@@ -23,7 +23,10 @@ function SignalRProvider({children, user}:Props) {
     const apiUrl = process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_NOTIFY_URL! : "https://api.carsbidi.com/notifications"
 
     useEffect(()=>{
-        const newConnection = new HubConnectionBuilder().withUrl(apiUrl).withAutomaticReconnect().build();
+        const newConnection = new HubConnectionBuilder().withUrl(apiUrl)
+                                    .HttpConnectionOptions.Headers.Add("Access-Control-Allow-Origin","*")
+                                    .withAutomaticReconnect().WithOrigins()
+                                    .build();
         setConnection(newConnection)
     },[apiUrl])
 

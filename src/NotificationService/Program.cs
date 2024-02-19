@@ -2,18 +2,23 @@ using MassTransit;
 using Microsoft.AspNetCore.SignalR;
 using NotificationService;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+// var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy  =>
-                      {
-                          policy.WithOrigins("https://carsbidi.onrender.com/");
-                      });
-});
+builder.Services.AddCors(
+//     options =>
+// { 
+//     options.AddPolicy(name: MyAllowSpecificOrigins,
+//                       policy  =>
+//                       {
+//                           policy.AllowAnyOrigin()
+                            
+//                             .AllowCredentials()
+//                             ;
+//                       });
+// }
+);
 
 builder.Services.AddMassTransit(x =>
             {
@@ -37,7 +42,7 @@ builder.Services.AddSignalR();
 
 
 var app = builder.Build();
-
+app.UseCors(options => options.WithOrigins("https://carsbidi.onrender.com/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
 app.MapHub<NotificationHub>("/notifications");
 app.MapControllers();
 
