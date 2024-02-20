@@ -6,19 +6,16 @@ using NotificationService;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
-builder.Services.AddCors(
-//     options =>
-// { 
-//     options.AddPolicy(name: MyAllowSpecificOrigins,
-//                       policy  =>
-//                       {
-//                           policy.AllowAnyOrigin()
-                            
-//                             .AllowCredentials()
-//                             ;
-//                       });
-// }
-);
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy  =>
+                      {
+                          policy.WithOrigins("https://carsbidi.onrender.com/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                      });
+});
 
 builder.Services.AddMassTransit(x =>
             {
@@ -42,7 +39,8 @@ builder.Services.AddSignalR();
 
 
 var app = builder.Build();
-app.UseCors(options => options.WithOrigins("https://carsbidi.onrender.com/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+app.UseRouting();
+app.UseCors(MyAllowSpecificOrigins);
 app.MapHub<NotificationHub>("/notifications");
 app.MapControllers();
 
