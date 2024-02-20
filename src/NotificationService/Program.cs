@@ -4,7 +4,6 @@ using NotificationService;
 
 // var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -13,7 +12,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy  =>
                       {
-                          policy.WithOrigins("https://carsbidi.onrender.com/").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                          policy.WithOrigins("https://carsbidi.onrender.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
                       });
 });
 
@@ -36,7 +35,7 @@ builder.Services.AddMassTransit(x =>
  
  
 builder.Services.AddSignalR();
-
+builder.Services.AddControllers();
 
 var app = builder.Build();
 app.UseRouting();

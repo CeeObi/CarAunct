@@ -38,8 +38,7 @@ function SignalRProvider({children, user}:Props) {
                     console.log("Bid Placed event received");
                     if (bid.bidStatus.includes("Accepted")){
                         setCurrentPrice(bid.auctionId, bid.amount)
-                    };
-                    
+                    };                    
                     addBid(bid);
                 })
 

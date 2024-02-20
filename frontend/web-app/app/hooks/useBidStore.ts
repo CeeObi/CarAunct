@@ -20,8 +20,8 @@ const useBidStore = create<State & Actions>((set) => ({
     setBids: (bids:Bid[]) => {
         set(() => ({bids}))
     },
-    addBid: (bid: Bid) =>{
-        console.log(bid);
+    addBid: (bid: Bid) =>{ 
+        // console.log(bid);
         set((state)=>({
             bids: !state.bids.find((x)=> x.id === bid.id) ? [bid,...state.bids] : [...state.bids]
         }));
