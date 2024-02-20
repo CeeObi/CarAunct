@@ -39,7 +39,7 @@ function SignalRProvider({children, user}:Props) {
                     if (bid.bidStatus.includes("Accepted")){
                         setCurrentPrice(bid.auctionId, bid.amount)
                     };                    
-                    addBid(bid);
+                    //addBid(bid);
                 })
 
                 connection.on("AuctionCreated",(auction: Auction) => {
