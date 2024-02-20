@@ -22,7 +22,7 @@ function BidItem({bid}: Props) {
                 bgColor = "bg-amber-200";
                 text = "Reserve not met"                
                 break;
-            case "AcceptedBelowReserve":
+            case "TooLow":
                 bgColor = "bg-red-200";
                 text = "Bid was too low"                
                 break;        
