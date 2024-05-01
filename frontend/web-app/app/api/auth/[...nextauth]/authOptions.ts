@@ -15,7 +15,7 @@ const authOptions : NextAuthOptions = {
             issuer: process.env.ID_URL,//Identity server url
             authorization: {params: {
                 scope: "openid profile auctionApp",
-                // redirect_uri: process.env.ID_REDIRECT_URL//Tobe modified for container deploy
+                redirect_uri: process.env.ID_REDIRECT_URL//Tobe modified for container deploy
             }},
             idToken: true
         })
@@ -53,8 +53,7 @@ const authOptions : NextAuthOptions = {
             // Allows callback URLs on the same origin
             else if (new URL(url).origin === baseUrl) return url
             return baseUrl
-        }
-        
+        }        
     },    
 }
 
