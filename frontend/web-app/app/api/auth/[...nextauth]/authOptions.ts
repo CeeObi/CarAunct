@@ -41,7 +41,13 @@ const authOptions : NextAuthOptions = {
                 session.user.username = token.username //implemented module augmentation to add the username property in next-auth.d.ts
             }
             return session
-        }
+        },
+        async redirect({url, baseUrl}) {
+            console.log('url', url);
+            console.log('baseUrl', baseUrl);            
+            return url                
+        },
+        
     },    
 }
 
