@@ -45,10 +45,16 @@ internal static class HostingExtensions
 
         builder.Services.ConfigureApplicationCookie(options => 
         {
-            options.Cookie.SameSite = SameSiteMode.Lax;
+            options.Cookie.SameSite = SameSiteMode.None;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         }); //Required when using http
         
-        builder.Services.AddAuthentication();
+        builder.Services.AddAuthentication().AddCookie("idsrv.session", options =>
+        {
+            options.Cookie.SameSite = SameSiteMode.None;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            // Other cookie options
+        });
             // .AddGoogle(options =>
             // {
             //     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
@@ -65,6 +71,12 @@ internal static class HostingExtensions
     
     public static WebApplication ConfigurePipeline(this WebApplication app)
     { 
+        app.UseCookiePolicy(new CookiePolicyOptions
+        {
+            MinimumSameSitePolicy = SameSiteMode.None,
+            Secure = CookieSecurePolicy.Always,
+        });
+
         app.UseSerilogRequestLogging();
     
         if (app.Environment.IsDevelopment())

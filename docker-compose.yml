@@ -115,8 +115,8 @@ services:
       #- auction-svc => No need because resilence is already setup
   
   #Building IdentityService from my local file location
-  idntty-svc:
-    image: ceeobi/idntty-svc:latest
+  idnttyy-svc:
+    image: ceeobi/idnttyy-svc:latest
     build:
       context: .
       dockerfile: src/IdentityService/Dockerfile    
