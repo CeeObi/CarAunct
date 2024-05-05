@@ -15,7 +15,7 @@ const authOptions : NextAuthOptions = {
             issuer: process.env.ID_URL,//Identity server url
             authorization: {params: {
                 scope: "openid profile auctionApp",
-                redirect_uri: process.env.ID_REDIRECT_URL//Tobe modified for container deploy
+                redirect_uri: "https://carsbidi.onrender.com/api/auth/callback/id-server"//process.env.ID_REDIRECT_URL//Tobe modified for container deploy
             }},
             idToken: true
         })
@@ -49,10 +49,10 @@ const authOptions : NextAuthOptions = {
         // },
         async redirect({ url, baseUrl }) {
             // Allows relative callback URLs
-            if (url.startsWith("/")) return `${baseUrl}${url}`
+            if (url.startsWith("/")) return "https://carsbidi.onrender.com/api/auth/callback/id-server"//`${baseUrl}${url}`
             // Allows callback URLs on the same origin
-            else if (new URL(url).origin === baseUrl) return url
-            return baseUrl
+            else if (new URL(url).origin === baseUrl) return "https://carsbidi.onrender.com/api/auth/callback/id-server"//url
+            return "https://carsbidi.onrender.com/api/auth/callback/id-server"
         }        
     },    
 }
