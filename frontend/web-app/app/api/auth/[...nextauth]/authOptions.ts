@@ -23,10 +23,10 @@ const authOptions : NextAuthOptions = {
             idToken: true
         }),
 
-        GithubProvider({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET,
-          })
+        // GithubProvider({
+        //     clientId: process.env.GITHUB_ID,
+        //     clientSecret: process.env.GITHUB_SECRET,
+        //   })
         
         // GoogleProvider({
         // clientId: process.env.GOOGLE_CLIENT_ID,
@@ -42,7 +42,7 @@ const authOptions : NextAuthOptions = {
     ],
     
     pages: {
-        signIn:"/api/auth/signin"
+        signIn:"/api/auth/signin",        
     }, 
 
     callbacks:{
@@ -61,19 +61,7 @@ const authOptions : NextAuthOptions = {
                 session.user.username = token.username //implemented module augmentation to add the username property in next-auth.d.ts
             }
             return session
-        },
-        // async redirect({url, baseUrl}) {
-        //     console.log('url', url);
-        //     console.log('baseUrl', baseUrl);            
-        //     return url                
-        // },
-        // async redirect({ url, baseUrl }) {
-        //     // Allows relative callback URLs
-        //     if (url.startsWith("/")) return "https://carsbidi.onrender.com/api/auth/callback/id-server"//`${baseUrl}${url}`
-        //     // Allows callback URLs on the same origin
-        //     else if (new URL(url).origin === baseUrl) return "https://carsbidi.onrender.com/api/auth/callback/id-server"//url
-        //     return "https://carsbidi.onrender.com/api/auth/callback/id-server"
-        // }        
+        }
     },    
 }
 

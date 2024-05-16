@@ -7,7 +7,7 @@ function Page({searchParams}:{searchParams:{callbackUrl: string}}) {
       title="You need to be logged in to visit this page"
       subtitle='Please click below to sign'
       showLogin 
-      callbackUrl={searchParams.callbackUrl} 
+      callbackUrl={searchParams.callbackUrl}  
     />
   )
 }
