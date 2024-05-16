@@ -1,6 +1,8 @@
 import Search from "./Search";
 import Logo from "./Logo";
 import LoginButton from "./LoginButton";
+import { signIn } from 'next-auth/react';//Just added
+import { Button } from 'flowbite-react';//Just added
 import { getCurrentUser } from "../actions/authActions";
 import UserActions from "./UserActions";
 
