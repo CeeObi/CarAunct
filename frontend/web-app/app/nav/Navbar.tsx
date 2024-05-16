@@ -1,8 +1,7 @@
 import Search from "./Search";
 import Logo from "./Logo";
 import LoginButton from "./LoginButton";
-import { signIn } from 'next-auth/react';//Just added
-import { Button } from 'flowbite-react';//Just added
+import LoginButton2 from "./LoginButton2";
 import { getCurrentUser } from "../actions/authActions";
 import UserActions from "./UserActions";
 
@@ -17,8 +16,8 @@ const Navbar =  async() => {
           <Logo />
           <Search vizbility="hidden md:flex  w-[50%]  "/>
           {user ? <UserActions user={user}/> :<>
-          <LoginButton/>
-          <Button outline onClick={() => signIn("github")}>Login github</Button>
+          <LoginButton/>          
+          <LoginButton2/>          
           </>}
       </div>
       <Search vizbility="md:hidden mt-2  w-full"/>
