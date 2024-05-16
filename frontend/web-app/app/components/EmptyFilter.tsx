@@ -21,7 +21,7 @@ function EmptyFilter({
     callbackUrl} : Props){
         const reset = useParamsStore((state) => state.reset)
 
-        console.log(callbackUrl)
+
   return (
     <div className='h-[40vh] flex flex-col gap-2 justify-center items-center shadow-lg'>
         <Headings title={title} subtitle={subtitle} center />
@@ -30,7 +30,11 @@ function EmptyFilter({
             showReset && (<Button outline onClick={reset}>Remove Filters</Button>)
         }
         {
-            showLogin && (<Button outline onClick={() => signIn("id-server", {callbackUrl})}>Login</Button>)
+            showLogin && (<>
+            <Button outline onClick={() => signIn("id-server", {callbackUrl})}>Login</Button>
+            <Button outline onClick={() => signIn("github")}>Login github</Button>
+            </>
+        )
         }
         </div>
 

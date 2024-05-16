@@ -23,10 +23,31 @@ const authOptions : NextAuthOptions = {
             idToken: true
         }),
 
-        // GithubProvider({
-        //     clientId: process.env.GITHUB_ID,
-        //     clientSecret: process.env.GITHUB_SECRET,
-        //   })
+        // {
+        //     id: 'google',
+        //     name: 'Google',
+        //     type: 'oauth',
+        //     version: '2.0',
+        //     scope: 'openid email profile',
+        //     params: { grant_type: 'authorization_code' },
+        //     accessTokenUrl: 'https://oauth2.googleapis.com/token',
+        //     authorizationUrl: 'https://accounts.google.com/o/oauth2/auth',
+        //     clientId: process.env.GOOGLE_CLIENT_ID,
+        //     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        //   },
+
+        GithubProvider({
+            id: 'github',
+            // name: 'GitHub',
+            type: 'oauth',
+            version: '2.0',
+            scope: 'user',
+            params: { grant_type: 'authorization_code' },
+            accessTokenUrl: 'https://github.com/login/oauth/access_token',
+            authorizationUrl: 'https://github.com/login/oauth/authorize',
+            clientId: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            })
         
         // GoogleProvider({
         // clientId: process.env.GOOGLE_CLIENT_ID,
