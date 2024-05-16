@@ -39,8 +39,8 @@ const authOptions : NextAuthOptions = {
         GithubProvider({
             id: 'github',
             // name: 'GitHub',
-            type: 'oauth',
-            version: '2.0',
+            // type: 'oauth',
+            // version: '2.0',
             scope: 'user',
             params: { grant_type: 'authorization_code' },
             accessTokenUrl: 'https://github.com/login/oauth/access_token',
