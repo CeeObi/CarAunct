@@ -21,7 +21,7 @@ function EmptyFilter({
     callbackUrl} : Props){
         const reset = useParamsStore((state) => state.reset)
 
-
+        console.log(callbackUrl)
   return (
     <div className='h-[40vh] flex flex-col gap-2 justify-center items-center shadow-lg'>
         <Headings title={title} subtitle={subtitle} center />

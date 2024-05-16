@@ -1,5 +1,8 @@
 import { NextAuthOptions } from "next-auth"
 import DuendeIdentityServer6 from "next-auth/providers/duende-identity-server6"
+import GoogleProvider from "next-auth/providers/google"
+import GithubProvider from "next-auth/providers/github"
+
 
 
 const authOptions : NextAuthOptions = {
@@ -18,7 +21,24 @@ const authOptions : NextAuthOptions = {
                 redirect_uri: "https://carsbidi.onrender.com/api/auth/callback/id-server"//process.env.ID_REDIRECT_URL//Tobe modified for container deploy
             }},
             idToken: true
-        })
+        }),
+
+        GithubProvider({
+            clientId: process.env.GITHUB_ID,
+            clientSecret: process.env.GITHUB_SECRET,
+          })
+        
+        // GoogleProvider({
+        // clientId: process.env.GOOGLE_CLIENT_ID,
+        // clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        // profile(profile) {
+        //     return { profile
+        //     // Return all the profile information you need.
+        //     // The only truly required field is `id`
+        //     // to be able identify the account when added to a database
+        //     }
+        // },
+        // })
     ],
     
     pages: {
