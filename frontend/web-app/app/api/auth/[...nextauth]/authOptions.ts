@@ -45,8 +45,8 @@ const authOptions : NextAuthOptions = {
             params: { grant_type: 'authorization_code' },
             accessTokenUrl: 'https://github.com/login/oauth/access_token',
             authorizationUrl: 'https://github.com/login/oauth/authorize',
-            clientId: process.env.GITHUB_CLIENT_ID,
-            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            clientId: "Ov23liyzusdKTLfLF4o6",//process.env.GITHUB_CLIENT_ID,
+            clientSecret: "ee27356fa4f822432322d6e0735238d465d158c4",//process.env.GITHUB_CLIENT_SECRET,
             })
         
         // GoogleProvider({
