@@ -47,13 +47,13 @@ const authOptions : NextAuthOptions = {
         //     console.log('baseUrl', baseUrl);            
         //     return url                
         // },
-        async redirect({ url, baseUrl }) {
-            // Allows relative callback URLs
-            if (url.startsWith("/")) return "https://carsbidi.onrender.com/api/auth/callback/id-server"//`${baseUrl}${url}`
-            // Allows callback URLs on the same origin
-            else if (new URL(url).origin === baseUrl) return "https://carsbidi.onrender.com/api/auth/callback/id-server"//url
-            return "https://carsbidi.onrender.com/api/auth/callback/id-server"
-        }        
+        // async redirect({ url, baseUrl }) {
+        //     // Allows relative callback URLs
+        //     if (url.startsWith("/")) return "https://carsbidi.onrender.com/api/auth/callback/id-server"//`${baseUrl}${url}`
+        //     // Allows callback URLs on the same origin
+        //     else if (new URL(url).origin === baseUrl) return "https://carsbidi.onrender.com/api/auth/callback/id-server"//url
+        //     return "https://carsbidi.onrender.com/api/auth/callback/id-server"
+        // }        
     },    
 }
 
