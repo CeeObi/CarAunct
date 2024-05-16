@@ -17,7 +17,7 @@ const authOptions : NextAuthOptions = {
             issuer: process.env.ID_URL,//Identity server url
             authorization: {params: {
                 scope: "openid profile auctionApp",
-                // redirect_uri: "https://carsbidi.onrender.com/api/auth/callback/id-server"//process.env.ID_REDIRECT_URL//Tobe modified for container deploy
+                redirect_uri: "https://carsbidi.onrender.com/api/auth/callback/id-server"//process.env.ID_REDIRECT_URL//Tobe modified for container deploy
             }},
             idToken: true
         }),
