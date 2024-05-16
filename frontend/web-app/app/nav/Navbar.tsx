@@ -14,8 +14,10 @@ const Navbar =  async() => {
       <div className="flex justify-between items-center w-full">
           <Logo />
           <Search vizbility="hidden md:flex  w-[50%]  "/>
-          {user ? <UserActions user={user}/> :
-          <LoginButton/>}
+          {user ? <UserActions user={user}/> :<>
+          <LoginButton/>
+          <Button outline onClick={() => signIn("github")}>Login github</Button>
+          </>}
       </div>
       <Search vizbility="md:hidden mt-2  w-full"/>
     </header>
