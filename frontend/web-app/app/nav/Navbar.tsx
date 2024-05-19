@@ -2,7 +2,6 @@ import Search from "./Search";
 import Logo from "./Logo";
 import LoginButton from "./LoginButton";
 import { FaGithub } from "react-icons/fa";
-import LoginButton2 from "./LoginButton2";
 import { getCurrentUser } from "../actions/authActions";
 import UserActions from "./UserActions";
 import LoginActions from "./LoginActions";
