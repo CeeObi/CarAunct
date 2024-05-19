@@ -1,5 +1,5 @@
 'use client';
-import { Button, Dropdown } from 'flowbite-react'
+import { Dropdown } from 'flowbite-react'
 import { User } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
@@ -37,7 +37,7 @@ function UserActions({user}:Props) {
     // <Button outline>
     //     <Link href="/session">Session</Link> 
     // </Button>
-    <Dropdown arrowIcon={false} label={<span className="flex items-center mx-0 px-0">Welcome, {`${user.name}`}<FaRegCircleUser className="p-0 m-0 text-green-500 sm:p-1" size={30} /></span>} inline>
+    <Dropdown arrowIcon={false} label={<span className="flex items-center mx-0 px-0">Welcome, {`${user.name}`}<FaRegCircleUser className="p-0 m-0 text-green-600 sm:p-1" size={30} /></span>} inline>
     <Dropdown.Item icon={HiUser} onClick={setSeller}>My Auctions</Dropdown.Item>
     <Dropdown.Item icon={AiFillTrophy} onClick={setWinner}>Auctions Won</Dropdown.Item>
     <Dropdown.Item icon={AiFillCar}><Link href='/auctions/create'>Sell my car</Link></Dropdown.Item>

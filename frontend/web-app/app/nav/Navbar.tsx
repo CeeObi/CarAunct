@@ -13,16 +13,12 @@ const Navbar =  async() => {
 
   return (
     <header className="sticky top-0 z-50 lg:flex justify-between bg-white p-5 text-gray-800 shadow-md items-center">
-      <div className="flex justify-between items-center w-full">
+      <div className="flex justify-between w-full">
           <Logo />
-          <Search vizbility="hidden md:flex  w-[50%]  "/>
-          {user ? <UserActions user={user}/> :<>          
-          <LoginActions />
-          {/* <LoginButton/>          
-          <LoginButton2/>           */}
-          </>}
+          <Search vizbility="hidden md:flex  w-[60%]  "/>
+          {user ? <UserActions user={user}/> : <LoginActions />}
       </div>
-      <Search vizbility="md:hidden mt-2  w-full"/>
+      <Search vizbility="md:hidden mt-2 w-full"/>
     </header>
   )
 }
