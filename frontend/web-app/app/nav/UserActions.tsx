@@ -8,6 +8,7 @@ import React from 'react'
 import { AiFillCar, AiFillTrophy, AiOutlineLogout } from 'react-icons/ai'
 import { HiCog, HiUser } from 'react-icons/hi2'
 import { useParamsStore } from '../hooks/useParamsStore';
+import { FaRegCircleUser } from 'react-icons/fa6';
 
 type Props = {
     user: User
@@ -36,7 +37,7 @@ function UserActions({user}:Props) {
     // <Button outline>
     //     <Link href="/session">Session</Link> 
     // </Button>
-    <Dropdown label={`Welcome ${user.name}`} inline>
+    <Dropdown arrowIcon={false} label={<span className="flex items-center mx-0 px-0">Welcome, {`${user.name}`}<FaRegCircleUser className="p-0 m-0 text-green-500 sm:p-1" size={30} /></span>} inline>
     <Dropdown.Item icon={HiUser} onClick={setSeller}>My Auctions</Dropdown.Item>
     <Dropdown.Item icon={AiFillTrophy} onClick={setWinner}>Auctions Won</Dropdown.Item>
     <Dropdown.Item icon={AiFillCar}><Link href='/auctions/create'>Sell my car</Link></Dropdown.Item>

@@ -1,4 +1,6 @@
 import Listings from './auctions/Listings';
+import 'semantic-ui-css/semantic.min.css';
+
 
 
 

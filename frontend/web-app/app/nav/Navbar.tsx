@@ -1,13 +1,15 @@
 import Search from "./Search";
 import Logo from "./Logo";
 import LoginButton from "./LoginButton";
+import { FaGithub } from "react-icons/fa";
 import LoginButton2 from "./LoginButton2";
 import { getCurrentUser } from "../actions/authActions";
 import UserActions from "./UserActions";
+import LoginActions from "./LoginActions";
 
 
 const Navbar =  async() => {
-  const user = await getCurrentUser()
+  const user = await getCurrentUser() //{username:"Jame",id:"12345"}
 
 
   return (
@@ -15,9 +17,10 @@ const Navbar =  async() => {
       <div className="flex justify-between items-center w-full">
           <Logo />
           <Search vizbility="hidden md:flex  w-[50%]  "/>
-          {user ? <UserActions user={user}/> :<>
-          <LoginButton/>          
-          <LoginButton2/>          
+          {user ? <UserActions user={user}/> :<>          
+          <LoginActions />
+          {/* <LoginButton/>          
+          <LoginButton2/>           */}
           </>}
       </div>
       <Search vizbility="md:hidden mt-2  w-full"/>

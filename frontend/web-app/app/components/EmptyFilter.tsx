@@ -3,7 +3,9 @@ import React from 'react'
 import { useParamsStore } from '../hooks/useParamsStore'
 import Headings from './Headings'
 import { Button } from 'flowbite-react'
+import { FaGithub } from 'react-icons/fa'
 import { signIn } from 'next-auth/react'
+import { RiLoginBoxLine } from 'react-icons/ri'
 
 type Props={
     title ?: string,
@@ -29,10 +31,10 @@ function EmptyFilter({
         {
             showReset && (<Button outline onClick={reset}>Remove Filters</Button>)
         }
-        {
+        { 
             showLogin && (<>
-            <Button outline onClick={() => signIn("id-server", {callbackUrl})}>Login</Button>
-            <Button outline onClick={() => signIn("github")}>Login github</Button>
+            <Button className='mx-auto my-3' outline onClick={() => signIn("id-server", {callbackUrl})}><RiLoginBoxLine className='m-1'/> Login</Button>
+            <Button className='' outline onClick={() => signIn("github")}><FaGithub className='m-1' />Signin with Github</Button>
             </>
         )
         }
