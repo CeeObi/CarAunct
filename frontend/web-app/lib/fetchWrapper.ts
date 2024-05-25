@@ -50,18 +50,18 @@ async function getHeaders() {
 }
 
 
-async function handleResponse(response: Response) {    
+async function handleResponse(response: Response) {  
     const text = await response.text();
     // const data = text && JSON.parse(text);
     let data;
     try {
-        data = JSON.parse(text);
+        data = await JSON.parse(text);
     } catch (error) {
         data = text; 
     }
 
     if (response.ok){
-        return data || response.statusText
+        return await data || response.statusText
     }else{
         const error = {
             status: response.status,
