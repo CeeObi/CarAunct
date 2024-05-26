@@ -1,14 +1,14 @@
 import { getTokenWorkAround } from "@/app/actions/authActions"
 
-// const baseUrl = process.env.API_URL
+const baseUrl = process.env.API_URL
 
 async function get(url:string) {
     const requestOptions ={
         method: "GET",
         headers: await getHeaders(),
     }
-    // const response = await fetch(baseUrl + url, requestOptions)
-    const response = await fetch(url, requestOptions)
+    const response = await fetch(baseUrl + url, requestOptions)
+    // const response = await fetchWithRetries(baseUrl + url, requestOptions)
     return await handleResponse(response)    
 }
 
@@ -18,7 +18,7 @@ async function post(url:string, body:{}) {
         headers: await getHeaders(),
         body: JSON.stringify(body)
     }
-    const response = await fetch(url, requestOptions)
+    const response = await fetch(baseUrl + url, requestOptions)
     // const response = await fetchWithRetries(baseUrl + url, requestOptions)
     return await handleResponse(response)    
 }
@@ -29,7 +29,7 @@ async function put(url:string, body:{}) {
         headers: await getHeaders(),
         body: JSON.stringify(body)
     }
-    const response = await fetch(url, requestOptions)
+    const response = await fetch(baseUrl + url, requestOptions)
     // const response = await fetchWithRetries(baseUrl + url, requestOptions)
     return await handleResponse(response)    
 }
@@ -39,7 +39,7 @@ async function del(url:string) {
         method: "DELETE",
         headers: await getHeaders()
     }
-    const response = await fetch(url, requestOptions)
+    const response = await fetch(baseUrl + url, requestOptions)
     // const response = await fetchWithRetries(baseUrl + url, requestOptions)
     return await handleResponse(response)    
 }
