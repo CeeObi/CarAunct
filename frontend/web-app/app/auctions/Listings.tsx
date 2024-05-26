@@ -40,11 +40,36 @@ function Listings() {
     }
 
     useEffect(() => {
+        try{
         getData(dataUrl).then((gottenData) => {
                 setData(gottenData);
                 setLoading(false);
-        });
-    },[dataUrl, setData])  
+
+        });}
+        catch(error){
+            setLoading(true) 
+            setIsError(true)
+        }
+    },[dataUrl, setData])
+    
+
+    try{
+        let content = data.auctions.map((result) => (<AuctionCard key={result.id} auction={result} />))
+      }
+    catch{
+        setLoading(true) 
+        setIsError(true)
+      }
+
+
+  if (loading){
+    if (isError){
+        return <><h3>Loading...</h3><h5>Please referesh after 2 mins...</h5></>
+    }
+     return <h3>Loading...</h3>
+  }   
+
+  
 
 
   
@@ -60,7 +85,7 @@ function Listings() {
         <div className="flex justify-center mt-4">
             <AppPagination currentPage={params.pageNumber} pageCount={data.pageCount} changePage={setPageNumber}/>
         </div>
-    </>:<><h3>Loading...</h3><h5>Please refresh after 2 mins if loading persist...</h5></>
+    </>:<><h3>Loading...</h3><h5>Please referesh after 2 mins...</h5></>
     }
   </>)
 }
