@@ -15,7 +15,6 @@ import useActionStore from "../hooks/useAuctionStore";
 function Listings() {
     // const [data,setData] = useState<PagedResult<Auction>>();
     const [loading,setLoading] = useState(true)
-    const [isError,setIsError] = useState(false)
 
     const params = useParamsStore((state) => ({        
         pageSize: state.pageSize,
@@ -40,39 +39,18 @@ function Listings() {
     }
 
     useEffect(() => {
-        try{
         getData(dataUrl).then((gottenData) => {
                 setData(gottenData);
                 setLoading(false);
-
-        });}
-        catch(error){
-            setLoading(true) 
-            setIsError(true)
-        }
+        });
     },[dataUrl, setData])
-    
-
-    try{
-        let content = data.auctions.map((result) => (<AuctionCard key={result.id} auction={result} />))
-      }
-      catch(error){
-        setLoading(true) 
-        setIsError(true)
-      }
 
 
   if (loading){
-    if (isError){
-        return <><h3>Loading...</h3><h5>Please referesh after 2 mins...</h5></>
-    }
      return <h3>Loading...</h3>
   }   
+ 
 
-  
-
-
-  
   return (<>
     <Filters />
     {data.totalCount===0 ? <EmptyFilter showReset /> 
