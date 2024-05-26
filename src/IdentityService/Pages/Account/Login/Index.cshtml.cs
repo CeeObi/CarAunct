@@ -106,7 +106,7 @@ public class Index : PageModel
                     }
 
                     // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
-                    return Redirect(Input.ReturnUrl);
+                    return Redirect(Input.ReturnUrl);////////////////////////Redirect here (debug here)
                 }
 
                 // request for a local page
