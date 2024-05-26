@@ -54,16 +54,21 @@ function Listings() {
   return (<>
     <Filters />
     {data.totalCount===0 ? <EmptyFilter showReset /> 
-    :<>
-        <div className="grid px-3 xl:grid-cols-4 lg:grid-cols-3 gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
-            {
-                data.auctions.map((result) => (<AuctionCard key={result.id} auction={result} />))
-            }
-        </div>
-        <div className="flex justify-center mt-4">
-            <AppPagination currentPage={params.pageNumber} pageCount={data.pageCount} changePage={setPageNumber}/>
-        </div>
-    </>}
+    : data && data.auctions && Array.isArray(data.auctions) ?
+        <>
+            <div className="grid px-3 xl:grid-cols-4 lg:grid-cols-3 gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
+                {
+                    data.auctions.map((result) => (<AuctionCard key={result.id} auction={result} />))
+                }
+            </div>            
+            <div className="flex justify-center mt-4">
+                <AppPagination currentPage={params.pageNumber} pageCount={data.pageCount} changePage={setPageNumber}/>
+            </div>
+        </>:
+        <>
+            <h3>Loading...</h3><h5>Please referesh after 2 mins...</h5>
+        </>
+    }
   </>)
 }
 
