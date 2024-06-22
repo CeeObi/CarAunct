@@ -1,4 +1,5 @@
 import { getTokenWorkAround } from "@/app/actions/authActions";
+import axios from "axios";
 
 const baseUrl = process.env.API_URL;
 
@@ -11,7 +12,13 @@ async function get(url: string, retries = 5, backoff = 3000) {
         var res;
         try {
             const response = await fetch(baseUrl + url, requestOptions);
-            // const response = await fetch(url, options);
+            console.log("fetch is:", response);
+            const customFetch = axios.create({
+                baseURL: baseUrl,
+            });
+            const resp = customFetch(baseUrl + url, requestOptions);
+            console.log("axios", resp);
+
             res = response;
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
