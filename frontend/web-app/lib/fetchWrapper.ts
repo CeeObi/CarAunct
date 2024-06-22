@@ -8,9 +8,11 @@ async function get(url: string, retries = 5, backoff = 3000) {
         headers: await getHeaders(),
     };
     for (let attempt = 0; attempt < retries; attempt++) {
+        var res;
         try {
             const response = await fetch(baseUrl + url, requestOptions);
             // const response = await fetch(url, options);
+            res = response;
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -21,7 +23,7 @@ async function get(url: string, retries = 5, backoff = 3000) {
                 await new Promise((resolve) => setTimeout(resolve, backoff));
                 backoff *= 2; // Exponential backoff
             } else {
-                throw new Error(`Failed to fetch after ${retries} retries: ${error.message}`);
+                return res;
             }
         }
     }
@@ -34,8 +36,10 @@ async function post(url: string, body: {}, retries = 5, backoff = 3000) {
         body: JSON.stringify(body),
     };
     for (let attempt = 0; attempt < retries; attempt++) {
+        var res;
         try {
             const response = await fetch(baseUrl + url, requestOptions);
+            res = response;
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -46,7 +50,8 @@ async function post(url: string, body: {}, retries = 5, backoff = 3000) {
                 await new Promise((resolve) => setTimeout(resolve, backoff));
                 backoff *= 2; // Exponential backoff
             } else {
-                throw new Error(`Failed to fetch after ${retries} retries: ${error.message}`);
+                return res;
+                // throw new Error(`Failed to fetch after ${retries} retries: ${error.message}`);
             }
         }
     }
@@ -59,8 +64,10 @@ async function put(url: string, body: {}, retries = 5, backoff = 3000) {
         body: JSON.stringify(body),
     };
     for (let attempt = 0; attempt < retries; attempt++) {
+        var res;
         try {
             const response = await fetch(baseUrl + url, requestOptions);
+            res = response;
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -71,7 +78,7 @@ async function put(url: string, body: {}, retries = 5, backoff = 3000) {
                 await new Promise((resolve) => setTimeout(resolve, backoff));
                 backoff *= 2; // Exponential backoff
             } else {
-                throw new Error(`Failed to fetch after ${retries} retries: ${error.message}`);
+                return res;
             }
         }
     }
@@ -83,8 +90,10 @@ async function del(url: string, retries = 5, backoff = 3000) {
         headers: await getHeaders(),
     };
     for (let attempt = 0; attempt < retries; attempt++) {
+        var res;
         try {
             const response = await fetch(baseUrl + url, requestOptions);
+            res = response;
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -95,7 +104,7 @@ async function del(url: string, retries = 5, backoff = 3000) {
                 await new Promise((resolve) => setTimeout(resolve, backoff));
                 backoff *= 2; // Exponential backoff
             } else {
-                throw new Error(`Failed to fetch after ${retries} retries: ${error.message}`);
+                return res;
             }
         }
     }
