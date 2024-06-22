@@ -1,75 +1,134 @@
-import { getTokenWorkAround } from "@/app/actions/authActions"
+import { getTokenWorkAround } from "@/app/actions/authActions";
 
-const baseUrl = process.env.API_URL
+const baseUrl = process.env.API_URL;
 
-async function get(url:string) {
-    const requestOptions ={
+async function get(url: string, retries = 5, backoff = 3000) {
+    const requestOptions = {
         method: "GET",
         headers: await getHeaders(),
+    };
+    for (let attempt = 0; attempt < retries; attempt++) {
+        try {
+            const response = await fetch(baseUrl + url, requestOptions);
+            // const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await handleResponse(response);
+        } catch (error) {
+            if (attempt < retries - 1) {
+                console.log(`Attempt ${attempt + 1} failed. Retrying in ${backoff}ms...`);
+                await new Promise((resolve) => setTimeout(resolve, backoff));
+                backoff *= 2; // Exponential backoff
+            } else {
+                throw new Error(`Failed to fetch after ${retries} retries: ${error.message}`);
+            }
+        }
     }
-    const response = await fetch(baseUrl + url, requestOptions)
-    return await handleResponse(response)    
 }
 
-async function post(url:string, body:{}) {
-    const requestOptions ={
+async function post(url: string, body: {}, retries = 5, backoff = 3000) {
+    const requestOptions = {
         method: "POST",
         headers: await getHeaders(),
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+    };
+    for (let attempt = 0; attempt < retries; attempt++) {
+        try {
+            const response = await fetch(baseUrl + url, requestOptions);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await handleResponse(response);
+        } catch (error) {
+            if (attempt < retries - 1) {
+                console.log(`Attempt ${attempt + 1} failed. Retrying in ${backoff}ms...`);
+                await new Promise((resolve) => setTimeout(resolve, backoff));
+                backoff *= 2; // Exponential backoff
+            } else {
+                throw new Error(`Failed to fetch after ${retries} retries: ${error.message}`);
+            }
+        }
     }
-    const response = await fetch(baseUrl + url, requestOptions)
-    return await handleResponse(response)    
 }
 
-async function put(url:string, body:{}) {
-    const requestOptions ={
+async function put(url: string, body: {}, retries = 5, backoff = 3000) {
+    const requestOptions = {
         method: "PUT",
         headers: await getHeaders(),
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+    };
+    for (let attempt = 0; attempt < retries; attempt++) {
+        try {
+            const response = await fetch(baseUrl + url, requestOptions);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await handleResponse(response);
+        } catch (error) {
+            if (attempt < retries - 1) {
+                console.log(`Attempt ${attempt + 1} failed. Retrying in ${backoff}ms...`);
+                await new Promise((resolve) => setTimeout(resolve, backoff));
+                backoff *= 2; // Exponential backoff
+            } else {
+                throw new Error(`Failed to fetch after ${retries} retries: ${error.message}`);
+            }
+        }
     }
-    const response = await fetch(baseUrl + url, requestOptions)
-    return await handleResponse(response)    
 }
 
-async function del(url:string) {
-    const requestOptions ={
+async function del(url: string, retries = 5, backoff = 3000) {
+    const requestOptions = {
         method: "DELETE",
-        headers: await getHeaders()
+        headers: await getHeaders(),
+    };
+    for (let attempt = 0; attempt < retries; attempt++) {
+        try {
+            const response = await fetch(baseUrl + url, requestOptions);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await handleResponse(response);
+        } catch (error) {
+            if (attempt < retries - 1) {
+                console.log(`Attempt ${attempt + 1} failed. Retrying in ${backoff}ms...`);
+                await new Promise((resolve) => setTimeout(resolve, backoff));
+                backoff *= 2; // Exponential backoff
+            } else {
+                throw new Error(`Failed to fetch after ${retries} retries: ${error.message}`);
+            }
+        }
     }
-    const response = await fetch(baseUrl + url, requestOptions)
-    return await handleResponse(response)    
 }
 
 async function getHeaders() {
     const token = await getTokenWorkAround();
-    const headers = { "Content-Type":"application/json" } as any
-    if (token){
-        headers.Authorization = `Bearer ${token.access_token}`
+    const headers = { "Content-Type": "application/json" } as any;
+    if (token) {
+        headers.Authorization = `Bearer ${token.access_token}`;
     }
-    return headers    
+    return headers;
 }
 
-
-async function handleResponse(response: Response) {    
+async function handleResponse(response: Response) {
     const text = await response.text();
     // const data = text && JSON.parse(text);
     let data;
     try {
         data = JSON.parse(text);
     } catch (error) {
-        data = text; 
+        data = text;
     }
 
-    if (response.ok){
-        return data || response.statusText
-    }else{
+    if (response.ok) {
+        return data || response.statusText;
+    } else {
         const error = {
             status: response.status,
-            message: typeof data === 'string' ? data : response.statusText
-        }
-        return {error}
+            message: typeof data === "string" ? data : response.statusText,
+        };
+        return { error };
     }
 }
 
-
-export {get,post,put,del}
+export { get, post, put, del };
