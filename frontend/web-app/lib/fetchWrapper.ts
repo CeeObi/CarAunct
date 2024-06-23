@@ -124,7 +124,11 @@ async function del(url: string, retries = 5, backoff = 3000) {
 
 async function getHeaders() {
     const token = await getTokenWorkAround();
-    const headers = { "Content-Type": "application/json" } as any;
+    const headers = {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "User-Agent": "PostmanRuntime/7.28.4",
+    } as any;
     if (token) {
         headers.Authorization = `Bearer ${token.access_token}`;
     }
