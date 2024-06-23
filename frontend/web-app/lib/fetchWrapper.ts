@@ -3,7 +3,7 @@ import axios from "axios";
 
 const baseUrl = process.env.API_URL;
 
-async function get(url: string, retries = 5000, backoff = 3000) {
+async function get(url: string, retries = 7, backoff = 3000) {
     const requestOptions = {
         method: "GET",
         headers: await getHeaders(),
@@ -30,7 +30,7 @@ async function get(url: string, retries = 5000, backoff = 3000) {
             if (attempt < retries - 1) {
                 console.log(`Attempt ${attempt + 1} failed. Retrying in ${backoff}ms...`);
                 await new Promise((resolve) => setTimeout(resolve, backoff));
-                // backoff *= 2; // Exponential backoff
+                backoff *= 2; // Exponential backoff
             } else {
                 return res;
             }
