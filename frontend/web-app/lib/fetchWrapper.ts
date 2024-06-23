@@ -127,8 +127,7 @@ async function getHeaders() {
     const headers = {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "User-Agent": "PostmanRuntime/7.39.0",
-        Connection: "keep-alive",
+        "User-Agent": "PostmanRuntime/7.28.4",
     } as any;
     if (token) {
         headers.Authorization = `Bearer ${token.access_token}`;
