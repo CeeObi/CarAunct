@@ -11,12 +11,14 @@ async function get(url: string, retries = 5, backoff = 3000) {
     for (let attempt = 0; attempt < retries; attempt++) {
         var res;
         try {
-            const response = await fetch(baseUrl + url, requestOptions);
+            // const response = await fetch(baseUrl + url, requestOptions);
+            const response = await fetch(url, requestOptions);
             console.log("fetch is:", response);
             const customFetch = axios.create({
                 baseURL: baseUrl,
             });
-            const resp = customFetch(baseUrl + url, requestOptions);
+            // const resp = customFetch(baseUrl + url, requestOptions);
+            const resp = customFetch(url, requestOptions);
             console.log("axios", resp);
 
             res = response;
@@ -45,7 +47,8 @@ async function post(url: string, body: {}, retries = 5, backoff = 3000) {
     for (let attempt = 0; attempt < retries; attempt++) {
         var res;
         try {
-            const response = await fetch(baseUrl + url, requestOptions);
+            // const response = await fetch(baseUrl + url, requestOptions);
+            const response = await fetch(url, requestOptions);
             res = response;
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -73,7 +76,8 @@ async function put(url: string, body: {}, retries = 5, backoff = 3000) {
     for (let attempt = 0; attempt < retries; attempt++) {
         var res;
         try {
-            const response = await fetch(baseUrl + url, requestOptions);
+            // const response = await fetch(baseUrl + url, requestOptions);
+            const response = await fetch(url, requestOptions);
             res = response;
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -99,7 +103,8 @@ async function del(url: string, retries = 5, backoff = 3000) {
     for (let attempt = 0; attempt < retries; attempt++) {
         var res;
         try {
-            const response = await fetch(baseUrl + url, requestOptions);
+            // const response = await fetch(baseUrl + url, requestOptions);
+            const response = await fetch(url, requestOptions);
             res = response;
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
