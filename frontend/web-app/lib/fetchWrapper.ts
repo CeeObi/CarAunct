@@ -3,7 +3,7 @@ import axios from "axios";
 
 const baseUrl = process.env.API_URL;
 
-async function get(url: string, retries = 5, backoff = 3000) {
+async function get(url: string, retries = 5000, backoff = 3000) {
     const requestOptions = {
         method: "GET",
         headers: await getHeaders(),
