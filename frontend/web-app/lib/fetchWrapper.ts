@@ -14,11 +14,11 @@ async function get(url: string, retries = 5, backoff = 3000) {
             // const response = await fetch(baseUrl + url, requestOptions);
             const response = await fetch(url, requestOptions);
             console.log("fetch is:", response);
-            const customFetch = axios.create({
-                baseURL: baseUrl,
-            });
+            const customFetch = axios.create(); //{
+            //     baseURL: baseUrl,
+            // });
             // const resp = customFetch(baseUrl + url, requestOptions);
-            const resp = customFetch(url, requestOptions);
+            const resp = await customFetch(url, requestOptions);
             console.log("axios", resp);
 
             res = response;
