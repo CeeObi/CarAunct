@@ -1,25 +1,25 @@
-import { NextAuthOptions } from "next-auth"
-import DuendeIdentityServer6 from "next-auth/providers/duende-identity-server6"
-import GithubProvider from "next-auth/providers/github"
+import { NextAuthOptions } from "next-auth";
+import DuendeIdentityServer6 from "next-auth/providers/duende-identity-server6";
+import GithubProvider from "next-auth/providers/github";
 
-
-
-const authOptions : NextAuthOptions = {
-    session:{
-        strategy:"jwt",
+const authOptions: NextAuthOptions = {
+    session: {
+        strategy: "jwt",
     },
 
-    providers:[
+    providers: [
         DuendeIdentityServer6({
-            id:"id-server",  
+            id: "id-server",
             clientId: "nextApp",
             clientSecret: "secret",
-            issuer: process.env.ID_URL,//Identity server url
-            authorization: {params: {
-                scope: "openid profile auctionApp",
-                redirect_uri: "https://carsbidi.onrender.com/api/auth/callback/id-server"//process.env.ID_REDIRECT_URL//Tobe modified for container deploy
-            }},
-            idToken: true
+            issuer: process.env.ID_URL, //Identity server url="http://localhost:5000"
+            authorization: {
+                params: {
+                    scope: "openid profile auctionApp",
+                    redirect_uri: process.env.ID_REDIRECT_URL, // "http://localhost:3000/api/auth/callback/id-server"
+                },
+            },
+            idToken: true,
         }),
 
         // {
@@ -36,7 +36,7 @@ const authOptions : NextAuthOptions = {
         //   },
 
         GithubProvider({
-            id: 'github',
+            id: "github",
             // name: 'GitHub',
             // type: 'oauth',
             // version: '2.0',
@@ -44,10 +44,10 @@ const authOptions : NextAuthOptions = {
             // params: { grant_type: 'authorization_code' },
             // accessTokenUrl: 'https://github.com/login/oauth/access_token',
             // authorizationUrl: 'https://github.com/login/oauth/authorize',
-            clientId: "Ov23liyzusdKTLfLF4o6",//process.env.GITHUB_CLIENT_ID,
-            clientSecret: "ee27356fa4f822432322d6e0735238d465d158c4",//process.env.GITHUB_CLIENT_SECRET,
-            })
-        
+            clientId: "Ov23liyzusdKTLfLF4o6", //process.env.GITHUB_CLIENT_ID,
+            clientSecret: "ee27356fa4f822432322d6e0735238d465d158c4", //process.env.GITHUB_CLIENT_SECRET,
+        }),
+
         // GoogleProvider({
         // clientId: process.env.GOOGLE_CLIENT_ID,
         // clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -60,31 +60,29 @@ const authOptions : NextAuthOptions = {
         // },
         // })
     ],
-    
+
     pages: {
-        signIn:"/api/auth/signin",        
-    }, 
+        signIn: "/api/auth/signin",
+    },
 
-    callbacks:{
-        async jwt({token, profile, account}){
-            if (profile){
-                token.username = profile.username //module augmentation was used to modify and add the property 'username'
+    callbacks: {
+        async jwt({ token, profile, account }) {
+            if (profile) {
+                token.username = profile.username; //module augmentation was used to modify and add the property 'username'
             }
-            
-            if (account){
-                token.access_token = account.access_token //module augmentation was used to modify and add the property 'username'
+
+            if (account) {
+                token.access_token = account.access_token; //module augmentation was used to modify and add the property 'username'
             }
-            return token
+            return token;
         },
-        async session({session, token}){
-            if (token){
-                session.user.username = token.username //implemented module augmentation to add the username property in next-auth.d.ts
+        async session({ session, token }) {
+            if (token) {
+                session.user.username = token.username; //implemented module augmentation to add the username property in next-auth.d.ts
             }
-            return session
-        }
-    },    
-}
+            return session;
+        },
+    },
+};
 
-
-
-export {authOptions};
+export { authOptions };
