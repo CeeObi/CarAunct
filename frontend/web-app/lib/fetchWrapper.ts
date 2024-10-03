@@ -1,4 +1,4 @@
-import { getTokenWorkAround } from "@/app/actions/authActions";
+import { getTokenWorkAround } from "@/app/Services/authService";
 import axios from "axios";
 
 const baseUrl = process.env.API_URL;

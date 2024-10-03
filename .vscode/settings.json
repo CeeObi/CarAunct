@@ -1,5 +1,7 @@
 {
     "css.lint.unknownAtRules": "ignore",
     "appService.defaultWebAppToDeploy": "/subscriptions/2e797993-0b37-4a94-a1e1-3eb290f6bb93/resourceGroups/DefaultResourceGroup-EAU/providers/Microsoft.Web/sites/auction-svc",
-    "appService.deploySubpath": "src\\AuctionService\\bin\\Publish"
+    "appService.deploySubpath": "src\\AuctionService\\bin\\Publish",
+    "editor.wordWrapColumn": 250,
+    "editor.wordWrap": "wordWrapColumn"
 }
