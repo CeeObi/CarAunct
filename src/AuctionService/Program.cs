@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-
+//Add Db to IOC
 builder.Services.AddDbContext<AuctionDbContext>(options => 
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
