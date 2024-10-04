@@ -8,20 +8,22 @@ namespace SearchService.Data;
 
 public class DbInitializer
 {   
+    //Method to initialize Db
     public static async Task InitDb(WebApplication app)
     {
         var connStr = app.Configuration.GetConnectionString("MongoDbDefaultConnection");
         using var scope = app.Services.CreateScope();
-        var getScopeServices = scope.ServiceProvider.GetRequiredService<AuctionServiceHttpClient>();
-        await SeedData(connStr, getScopeServices);
+        AuctionServiceHttpClient auntnHttpClientService = scope.ServiceProvider.GetRequiredService<AuctionServiceHttpClient>();
+        await SeedData(connStr, auntnHttpClientService);
     }
 
 
-    public static async Task SeedData(string cnctStr, AuctionServiceHttpClient context)
+    public static async Task SeedData(string cnctStr, AuctionServiceHttpClient auctionServiceHttpClient)
     {   
         
-                
-        await DB.InitAsync("SearchDb", MongoClientSettings.FromConnectionString(cnctStr)); 
+        //Initialize MongoDB with Table named 'SearchDb' from connection string and mongoclientsetting
+        await DB.InitAsync("SearchDb", MongoClientSettings.FromConnectionString(cnctStr)); //Globally accessible after initialization
+        //Set up fields in MongoDb - columns - make,mode,color
         await DB.Index<Item>()
             .Key(x => x.Make, KeyType.Text)
             .Key(x => x.Model, KeyType.Text)
@@ -38,7 +40,7 @@ public class DbInitializer
     //         await DB.SaveAsync(newitems);
     //     }        
 
-        var items = await context.GetItemsForSearchDb();
+        var items = await auctionServiceHttpClient.GetItemsForSearchDb();
             
         Console.WriteLine(items.Count + " returned from the auction server." );            
         

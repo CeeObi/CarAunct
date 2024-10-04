@@ -13,8 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+//Add Db to IOC via the auctionservicehttpclient which calls db
 builder.Services.AddHttpClient<AuctionServiceHttpClient>().AddPolicyHandler(GetPolicy());
+//Add auto mapper service
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//Add mass transit
 builder.Services.AddMassTransit(x =>
             {
                 x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();//declared here to help download to the consumer folder
@@ -75,6 +78,7 @@ app.Lifetime.ApplicationStarted.Register(async () => {
 ///////////////
     try
     {
+        //Call the class to initialize the Db and seed data
         await DbInitializer.InitDb(app);
     }
     catch (Exception e)
