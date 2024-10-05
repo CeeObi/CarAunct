@@ -8,26 +8,6 @@ const authOptions: NextAuthOptions = {
     },
 
     providers: [
-        // DuendeIdentityServer6({
-        //     id: "id-server",
-        //     clientId: "nextApp",
-        //     clientSecret: "secret",
-        //     wellKnown: "http://localhost:5000/.well-known/openid-configuration", // IdentityServer discovery documen
-        //     issuer: "http://localhost:5000", // process.env.ID_URL, //Identity server url="http://localhost:5000"
-        //     ////////////////
-        //     // Add your Identity Server settings here
-        //     // authorizationUrl: "http://localhost:5000/connect/authorize",
-        //     // tokenUrl: "http://localhost:5000/connect/token",
-        //     // redirectUri: "http://localhost:3000/api/auth/callback/id-server", // Ensure correct port
-        //     ////////////////
-        //     authorization: {
-        //         params: {
-        //             scope: "openid profile auctionApp",
-        //             redirect_uri: "http://localhost:3000/api/auth/callback/id-server", // process.env.ID_REDIRECT_URL, // "http://localhost:3000/api/auth/callback/id-server"
-        //         },
-        //     },
-        //     idToken: true,
-        // }),
         DuendeIdentityServer6({
             id: "id-server",
             clientId: "nextApp",
@@ -81,25 +61,6 @@ const authOptions: NextAuthOptions = {
         // },
         // })
     ],
-
-    // callbacks: {
-    //     async jwt({ token, profile, account }) {
-    //         if (profile) {
-    //             token.username = profile.username; //module augmentation was used to modify and add the property 'username'
-    //         }
-
-    //         if (account) {
-    //             token.access_token = account.access_token; //module augmentation was used to modify and add the property 'username'
-    //         }
-    //         return token;
-    //     },
-    //     async session({ session, token }) {
-    //         if (token) {
-    //             session.user.username = token.username; //implemented module augmentation to add the username property in next-auth.d.ts
-    //         }
-    //         return session;
-    //     },
-    // },
 
     callbacks: {
         async jwt({ token, profile, account }) {
