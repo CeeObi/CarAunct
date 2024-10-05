@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
+
 
 #copy all of the .csproj files and restore as distinct layer. Use of the same COPY command for every 
 #dockerfile in the project to take advantage of docker caching.
@@ -24,7 +24,7 @@ WORKDIR /app/src/SearchService
 RUN dotnet publish -c Release -o /app/src/out
 
 #Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0.1
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.4
 WORKDIR /app
 COPY --from=build /app/src/out .
 ENTRYPOINT [ "dotnet", "SearchService.dll" ]
