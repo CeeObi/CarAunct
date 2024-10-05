@@ -9,6 +9,8 @@ using SearchService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add environment variables to the configuration
+builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 
