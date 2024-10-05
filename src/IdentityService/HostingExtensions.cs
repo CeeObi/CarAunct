@@ -1,6 +1,7 @@
 using Duende.IdentityServer;
 using IdentityService.Data;
 using IdentityService.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -46,39 +47,44 @@ internal static class HostingExtensions
         builder.Services.ConfigureApplicationCookie(options => 
         {
             options.Cookie.SameSite = SameSiteMode.Lax;
-            // options.Cookie.SameSite = SameSiteMode.None;
-            // options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        }); //Required when using http
-        
-        builder.Services.AddAuthentication();
-        // .AddCookie("idsrv.session", options =>
-        // {
-        //     options.Cookie.SameSite = SameSiteMode.None;
-        //     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        //     // Other cookie options
-        // });
-            // .AddGoogle(options =>
-            // {
-            //     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-            //     // register your IdentityServer with Google at https://console.developers.google.com
-            //     // enable the Google+ API
-            //     // set the redirect URI to https://localhost:5001/signin-google
-            //     options.ClientId = "copy client ID from Google here";
-            //     options.ClientSecret = "copy client secret from Google here";
-            // });
+            if (builder.Environment.IsDevelopment())
+            {
+                // Do not set Secure in development
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                // Optionally, do not set SameSite=None if you're not using HTTPS
+                options.Cookie.SameSite = SameSiteMode.Lax; // Adjust accordingly
+            }
+            else
+            {
+                // In production, enforce Secure and SameSite=None for cookies
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.None;
+            }
+        }); //Required when using http
+
+        builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder
+                        .WithOrigins("http://localhost:3000") // Your Next.js app
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()); // Important for cookie exchange
+            });
+        
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = "/Account/Login"; // Adjust paths as needed
+            options.LogoutPath = "/Account/Logout";
+        });
 
         return builder.Build();
     }
     
     public static WebApplication ConfigurePipeline(this WebApplication app)
     { 
-        // app.UseCookiePolicy(new CookiePolicyOptions
-        // {
-        //     MinimumSameSitePolicy = SameSiteMode.None,
-        //     Secure = CookieSecurePolicy.Always,
-        // });
-
         app.UseSerilogRequestLogging();
     
         if (app.Environment.IsDevelopment())

@@ -29,19 +29,19 @@ function Listings() {
     const data = { auctions, pageCount, totalCount };
 
     const setParams = useParamsStore((state) => state.setParams);
-    const queryParametersUrl = qs.stringifyUrl({ url: "", query: params }); //only query parameters with no url - using query-string libray to convert object to querystring
-    console.log(queryParametersUrl);
+    const queryStringParameters = qs.stringifyUrl({ url: "", query: params }); //only query parameters with no url - using query-string libray to convert object to querystring
+    console.log(queryStringParameters);
 
     function setPageNumber(pageNumber: number) {
         setParams({ pageNumber });
     }
 
     useEffect(() => {
-        getData(queryParametersUrl).then((gottenData) => {
+        getData(queryStringParameters).then((gottenData) => {
             setData(gottenData);
             setLoading(false);
         });
-    }, [queryParametersUrl, setData]);
+    }, [queryStringParameters, setData]);
 
     if (loading) {
         return <h3>Loading...</h3>;

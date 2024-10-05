@@ -1,8 +1,6 @@
-import NextAuth from "next-auth"
-import { authOptions } from "./authOptions"
+import NextAuth from "next-auth";
+import { authOptions } from "./authOptions";
 // import DuendeIdentityServer6 from "next-auth/providers/duende-identity-server6"
-
- 
 
 // const authOptions : NextAuthOptions = {
 //     session:{
@@ -22,7 +20,7 @@ import { authOptions } from "./authOptions"
 //             idToken: true
 //         })
 //     ],
-    
+
 //     pages: {
 //         signIn:"/api/auth/signin"
 //     },
@@ -32,7 +30,7 @@ import { authOptions } from "./authOptions"
 //             if (profile){
 //                 token.username = profile.username //module augmentation was used to modify and add the property 'username'
 //             }
-            
+
 //             if (account){
 //                 token.access_token = account.access_token //module augmentation was used to modify and add the property 'username'
 //             }
@@ -44,19 +42,9 @@ import { authOptions } from "./authOptions"
 //             }
 //             return session
 //         }
-//     },    
+//     },
 // }
 
+const handler = NextAuth(authOptions);
 
-
-
-
-
-
-
-const handler = NextAuth(authOptions)
-
-
-
-
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };

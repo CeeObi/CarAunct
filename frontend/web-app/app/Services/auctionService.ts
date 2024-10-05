@@ -1,5 +1,5 @@
 "use server";
-const searchUrl = process.env.SEARCH_URL;
+const searchUrl = "http://localhost:7002/api/"; //process.env.SEARCH_URL;
 const auctionUrl = process.env.AUCTION_URL;
 const bidUrl = process.env.BID_URL;
 

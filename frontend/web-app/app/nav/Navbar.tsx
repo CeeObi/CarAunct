@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa";
 import { getCurrentUser } from "../Services/authService";
 import UserActions from "./UserActions";
 import LoginActions from "./LoginActions";
+import React from "react";
 
 const Navbar = async () => {
     const user = await getCurrentUser(); //{username:"Jame",id:"12345"}
@@ -20,7 +21,7 @@ const Navbar = async () => {
                     <>
                         <LoginActions />
                         {/* <LoginButton/>          
-          <LoginButton2/>           */}
+                        <LoginButton2/>           */}
                     </>
                 )}
             </div>

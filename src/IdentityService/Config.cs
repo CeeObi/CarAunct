@@ -30,19 +30,22 @@ public static class Config
             ClientSecrets = new[] {new Secret("NotASecret".Sha256())},
             AllowedGrantTypes = {GrantType.ResourceOwnerPassword} 
            },
-           new Client()
-           {
-            ClientId = "nextApp",
-            ClientName = "nextApp",
-            AllowedScopes = {"openid", "profile","auctionApp"},
-            RedirectUris = {"https://carsbidi.onrender.com:3000/api/auth/callback/id-server"},//{config["ClientApp"] + "/api/auth/callback/id-server"},//Remember to configure this securely
-            ClientSecrets = [new Secret("secret".Sha256())],
-            AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
-            RequirePkce = false,
-            AllowOfflineAccess = true,
-            AccessTokenLifetime = 3600*24*30,
-            AlwaysIncludeUserClaimsInIdToken=true
-           }
+
+           new Client
+            {
+                ClientId = "nextApp",
+                ClientName = "Next App",
+                AllowedScopes = { "openid", "profile", "auctionApp" }, // Correct way to specify allowed scopes
+                ClientSecrets = { new Secret("secret".Sha256()) }, // Use the SHA-256 hash for the secret
+                AllowedGrantTypes = GrantTypes.Code, // Use only Code for PKCE, remove ClientCredentials
+                RequirePkce = true, // Set to true to enforce PKCE
+                AllowOfflineAccess = true, // This is fine if you want refresh tokens
+                AccessTokenLifetime = 3600 * 24 * 30, // 30 days
+                AllowAccessTokensViaBrowser = true, // Allow access tokens in browser
+                RedirectUris = { "http://localhost:3000/api/auth/callback/id-server" }, // Ensure this matches exactly
+                AlwaysIncludeUserClaimsInIdToken = true // This is good practice
+            }
+
         };
 }
  
