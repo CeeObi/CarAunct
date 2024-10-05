@@ -10,6 +10,7 @@ public class AuctionDbContext : DbContext
     {
     }
     public DbSet<Auction> Auctions {set; get;}
+    public DbSet<Item> Items {set; get;}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {   //Class created due to x.AddEntityFrameworkOutbox added into mass transit service in program.cs
