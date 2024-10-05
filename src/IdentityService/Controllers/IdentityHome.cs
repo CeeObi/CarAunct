@@ -28,12 +28,12 @@ public class IdentityHome : ControllerBase
 
 
 
-    [HttpGet("/api/auth/logout")]
-    //[SecurityHeaders]
-    public async Task<IActionResult> signOut()
-    {
-        await _signInManager.SignOutAsync();
-        return NoContent();
+    //[HttpGet("/api/auth/logout")]
+    ////[SecurityHeaders]
+    //public async Task<IActionResult> signOut()
+    //{
+    //    await _signInManager.SignOutAsync();
+    //    return NoContent();
 
-    }
+    //}
 }
