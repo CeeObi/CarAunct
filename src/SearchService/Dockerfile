@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
 WORKDIR /app
 EXPOSE 80
+EXPOSE 443
 
 #copy all of the .csproj files and restore as distinct layer. Use of the same COPY command for every 
 #dockerfile in the project to take advantage of docker caching.
