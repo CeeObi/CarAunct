@@ -11,7 +11,7 @@ const authOptions: NextAuthOptions = {
         DuendeIdentityServer6({
             id: "id-server",
             clientId: "nextApp",
-            clientSecret: process.env.CLIENT_SECRET, // Ensure this is secured and not hard-coded in production
+            clientSecret: "secret", // Ensure this is secured and not hard-coded in production
             wellKnown: process.env.ID_URL + "/.well-known/openid-configuration", // Discovery document URL
             issuer: process.env.ID_URL, // Identity Server URL
             authorization: {
