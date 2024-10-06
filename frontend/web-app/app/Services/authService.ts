@@ -3,7 +3,6 @@ import { authOptions } from "../api/auth/[...nextauth]/authOptions";
 import { cookies, headers } from "next/headers";
 import { NextApiRequest } from "next";
 import { getToken } from "next-auth/jwt";
-import { get } from "@/lib/fetchWrapper";
 
 //get session
 export async function getCurrentUser() {

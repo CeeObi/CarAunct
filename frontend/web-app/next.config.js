@@ -8,8 +8,8 @@ const nextConfig = {
         domains: ["cdn.pixabay.com", "media.istockphoto.com", "carma.com.au", "carsales.pxcrush.net"],
     },
     env: {
-        NEXTAUTH_SECRET: "secret", //process.env.NEXTAUTH_SECRET, //Need to make this acces from the .env file later
-        NEXTAUTH_URL: "http://localhost:3000", // process.env.NEXTAUTH_URL,
+        NEXTAUTH_SECRET: process.env.CLIENT_SECRET, //Need to make this acces from the .env file later
+        NEXTAUTH_URL: process.env.CLIENT_APP,
     },
     reactStrictMode: false,
 };
