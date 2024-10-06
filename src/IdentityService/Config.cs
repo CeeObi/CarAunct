@@ -38,7 +38,7 @@ public static class Config
                 ClientId = "nextApp",
                 ClientName = "Next App",
                 AllowedScopes = { "openid", "profile", "auctionApp" }, // Correct way to specify allowed scopes
-                ClientSecrets = { new Secret("secret".Sha256()) }, // Use the SHA-256 hash for the secret
+                ClientSecrets = { new Secret(config["ClientSecret"].Sha256()) }, // Use the SHA-256 hash for the secret
                 AllowedGrantTypes = GrantTypes.Code, // Use only Code for PKCE, remove ClientCredentials
                 RequirePkce = true, // Set to true to enforce PKCE
                 AllowOfflineAccess = true, // This is fine if you want refresh tokens

@@ -127,6 +127,7 @@ services:
 
             # - VIRTUAL_HOST=id.carsbidi.com
             - ClientApp="http://localhost:3000"
+            - ClientSecret="secret"
             # /api/auth/callback/id-server
         ports:
             - 5000:80
