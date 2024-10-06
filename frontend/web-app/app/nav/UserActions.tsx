@@ -9,7 +9,6 @@ import { AiFillCar, AiFillTrophy, AiOutlineLogout } from "react-icons/ai";
 import { HiCog, HiUser } from "react-icons/hi2";
 import { useParamsStore } from "../hooks/useParamsStore";
 import { FaRegCircleUser } from "react-icons/fa6";
-import { _signout } from "../Services/SignoutService";
 
 type Props = {
     user: User;
