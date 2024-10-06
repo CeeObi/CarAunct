@@ -17,7 +17,7 @@ const authOptions: NextAuthOptions = {
             authorization: {
                 params: {
                     scope: "openid profile auctionApp", // Ensure these scopes are allowed in IdentityServer
-                    redirect_uri: "https://carsbidi.onrender.com:10000/api/auth/callback/id-server", //" process.env.CLIENT_APP + "/api/auth/callback/id-server", // Should match your IdentityServer configuration
+                    redirect_uri: "https://carsbidi.onrender.com/api/auth/callback/id-server", //" process.env.CLIENT_APP + "/api/auth/callback/id-server", // Should match your IdentityServer configuration
                 },
             },
             idToken: true, // Setting to true if you need ID token

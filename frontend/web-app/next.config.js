@@ -9,7 +9,7 @@ const nextConfig = {
     },
     env: {
         NEXTAUTH_SECRET: "secret", // process.env.CLIENT_SECRET, //Need to make this acces from the .env file later
-        NEXTAUTH_URL: "https://carsbidi.onrender.com:10000/api/auth/callback/id-server", // process.env.CLIENT_APP,
+        NEXTAUTH_URL: "https://carsbidi.onrender.com/api/auth/callback/id-server", // process.env.CLIENT_APP,
     },
     reactStrictMode: false,
 };
