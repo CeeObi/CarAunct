@@ -15,6 +15,9 @@ internal static class HostingExtensions
     {
         builder.Services.AddRazorPages();
 
+        // Add environment variables to the configuration
+        builder.Configuration.AddEnvironmentVariables();
+
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 

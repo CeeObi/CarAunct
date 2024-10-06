@@ -1,4 +1,6 @@
 ﻿using Duende.IdentityServer.Models;
+using IdentityService.Pages.ExternalLogin;
+using Microsoft.AspNetCore.Hosting.Server;
 
 namespace IdentityService;
 
@@ -41,8 +43,8 @@ public static class Config
                 RequirePkce = true, // Set to true to enforce PKCE
                 AllowOfflineAccess = true, // This is fine if you want refresh tokens
                 AccessTokenLifetime = 3600 * 24 * 30, // 30 days
-                AllowAccessTokensViaBrowser = true, // Allow access tokens in browser
-                RedirectUris = { "http://localhost:3000/api/auth/callback/id-server" }, // Ensure this matches exactly
+               AllowAccessTokensViaBrowser = true, // Allow access tokens in browser
+               RedirectUris = { config["ClientApp"]+"/api/auth/callback/id-server"}, // Ensure this matches exactly
                 AlwaysIncludeUserClaimsInIdToken = true // This is good practice
             }
 
