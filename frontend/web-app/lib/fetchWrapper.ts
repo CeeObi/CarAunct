@@ -1,7 +1,7 @@
 import { getTokenWorkAround } from "@/app/Services/authService";
 import axios from "axios";
 
-const baseUrl = process.env.API_URL;
+// const baseUrl = process.env.API_URL;
 
 async function get(url: string, retries = 7, backoff = 3000) {
     const requestOptions = {
