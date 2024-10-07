@@ -88,6 +88,8 @@ const authOptions: NextAuthOptions = {
         // },
     },
     ////
+    // Enable debug mode
+    debug: true,
 
     callbacks: {
         async jwt({ token, profile, account }) {
