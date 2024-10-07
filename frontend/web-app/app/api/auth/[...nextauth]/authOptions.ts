@@ -11,7 +11,7 @@ const authOptions: NextAuthOptions = {
         DuendeIdentityServer6({
             id: "id-server",
             clientId: "nextApp",
-            clientSecret: "secret", // Ensure this is secured and not hard-coded in production
+            clientSecret: `${process.env.CLIENT_SECRET}`, // "serversecret", - Ensure this is secured and not hard-coded in production
             wellKnown: process.env.ID_URL + "/.well-known/openid-configuration", //"http://localhost:5000/.well-known/openid-configuration",  // Discovery document URL
             issuer: process.env.ID_URL, // "http://localhost:5000", Identity Server URL
             authorization: {
@@ -45,8 +45,8 @@ const authOptions: NextAuthOptions = {
             // params: { grant_type: 'authorization_code' },
             // accessTokenUrl: 'https://github.com/login/oauth/access_token',
             // authorizationUrl: 'https://github.com/login/oauth/authorize',
-            clientId: "Ov23liyzusdKTLfLF4o6", //process.env.GITHUB_CLIENT_ID,
-            clientSecret: "ee27356fa4f822432322d6e0735238d465d158c4", //process.env.GITHUB_CLIENT_SECRET,
+            clientId: `${process.env.GITHUB_CLIENT_ID}`, //"Ov23liyzusdKTLfLF4o6" -
+            clientSecret: `${process.env.GITHUB_CLIENT_SECRET}`, // "see env", //
         }),
 
         // GoogleProvider({
