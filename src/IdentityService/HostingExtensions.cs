@@ -47,16 +47,19 @@ internal static class HostingExtensions
             .AddAspNetIdentity<ApplicationUser>()
             .AddProfileService<CustomProfileService>();
 
+
+
         builder.Services.ConfigureApplicationCookie(options => 
         {
-            options.Cookie.SameSite = SameSiteMode.Lax;
 
             if (builder.Environment.IsDevelopment())
             {
                 // Do not set Secure in development
-                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
-                // Optionally, do not set SameSite=None if you're not using HTTPS
-                options.Cookie.SameSite = SameSiteMode.Lax; // Adjust accordingly
+                //options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                //// Optionally, do not set SameSite=None if you're not using HTTPS
+                //options.Cookie.SameSite = SameSiteMode.Lax; // Adjust accordingly
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.None;
             }
             else
             {
@@ -69,8 +72,8 @@ internal static class HostingExtensions
         builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder
-                        .WithOrigins("http://localhost:3000") // Your Next.js app
+                    builderCors => builderCors
+                        .WithOrigins(builder.Configuration["ClientApp"]) // Your Next.js app
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()); // Important for cookie exchange
@@ -81,14 +84,32 @@ internal static class HostingExtensions
         {
             options.LoginPath = "/Account/Login"; // Adjust paths as needed
             options.LogoutPath = "/Account/Logout";
+            if (builder.Environment.IsDevelopment())
+            {
+                // Do not set Secure in development
+                //options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                //// Optionally, do not set SameSite=None if you're not using HTTPS
+                //options.Cookie.SameSite = SameSiteMode.Lax; // Adjust accordingly
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.None;
+            }
+            else
+            {
+                // In production, enforce Secure and SameSite=None for cookies
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SameSite = SameSiteMode.None;
+            }
         });
 
         return builder.Build();
     }
     
+
+
     public static WebApplication ConfigurePipeline(this WebApplication app)
     { 
         app.UseSerilogRequestLogging();
+        app.UseCors("AllowSpecificOrigin");
     
         if (app.Environment.IsDevelopment())
         {
@@ -97,6 +118,7 @@ internal static class HostingExtensions
 
         app.UseStaticFiles();
         app.UseRouting();
+        app.UseAuthentication();
         app.UseIdentityServer();
         app.UseAuthorization();
         

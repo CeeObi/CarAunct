@@ -64,28 +64,28 @@ const authOptions: NextAuthOptions = {
 
     //Set cookies
     cookies: {
-        sessionToken: {
-            name: `__Secure-next-auth.session-token`,
-            options: {
-                httpOnly: true,
-                sameSite: "none",
-                secure: true, // Ensure cookies are sent only over HTTPS
-            },
-        },
+        // sessionToken: {
+        //     name: `__Secure-next-auth.session-token`,
+        //     options: {
+        //         httpOnly: false,
+        //         sameSite: "none",
+        //         secure: true, // Ensure cookies are sent only over HTTPS
+        //     },
+        // },
         callbackUrl: {
             name: `__Secure-next-auth.callback-url`,
             options: {
                 sameSite: "none",
-                secure: true, // Ensure cookies are sent only over HTTPS
+                secure: false, // Ensure cookies are sent only over HTTPS
             },
         },
-        csrfToken: {
-            name: `__Host-next-auth.csrf-token`,
-            options: {
-                sameSite: "none",
-                secure: true, // Ensure cookies are sent only over HTTPS
-            },
-        },
+        // csrfToken: {
+        //     name: `__Host-next-auth.csrf-token`,
+        //     options: {
+        //         sameSite: "none",
+        //         secure: false, // Ensure cookies are sent only over HTTPS
+        //     },
+        // },
     },
     ////
 
@@ -104,6 +104,12 @@ const authOptions: NextAuthOptions = {
                 session.user.username = token.username; // Add username to the session
             }
             return session; // Return the updated session
+        },
+        async redirect({ url, baseUrl }) {
+            console.log("*******************");
+            console.log("---->>> Redirect callback:", url, baseUrl);
+            console.log("*******************");
+            return url.startsWith(baseUrl) ? url : baseUrl;
         },
     },
 

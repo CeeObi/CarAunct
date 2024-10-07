@@ -39,11 +39,10 @@ public static class Config
                 ClientName = "Next App",
                 AllowedScopes = { "openid", "profile", "auctionApp" }, // Correct way to specify allowed scopes
                 ClientSecrets = { new Secret(config["ClientSecret"].Sha256()) }, // Use the SHA-256 hash for the secret
-                AllowedGrantTypes = GrantTypes.Code, // Use only Code for PKCE, remove ClientCredentials
-                RequirePkce = true, // Set to true to enforce PKCE
+                AllowedGrantTypes = GrantTypes.CodeAndClientCredentials, // Use only Code for PKCE, remove ClientCredentials
+                RequirePkce = false, // Set to true to enforce PKCE
                 AllowOfflineAccess = true, // This is fine if you want refresh tokens
                 AccessTokenLifetime = 3600 * 24 * 30, // 30 days
-               AllowAccessTokensViaBrowser = true, // Allow access tokens in browser
                RedirectUris = { config["ClientApp"]+"/api/auth/callback/id-server"}, // Ensure this matches exactly
                 AlwaysIncludeUserClaimsInIdToken = true // This is good practice
             }
