@@ -62,6 +62,33 @@ const authOptions: NextAuthOptions = {
         // })
     ],
 
+    //Set cookies
+    cookies: {
+        sessionToken: {
+            name: `__Secure-next-auth.session-token`,
+            options: {
+                httpOnly: true,
+                sameSite: "none",
+                secure: true, // Ensure cookies are sent only over HTTPS
+            },
+        },
+        callbackUrl: {
+            name: `__Secure-next-auth.callback-url`,
+            options: {
+                sameSite: "none",
+                secure: true, // Ensure cookies are sent only over HTTPS
+            },
+        },
+        csrfToken: {
+            name: `__Host-next-auth.csrf-token`,
+            options: {
+                sameSite: "none",
+                secure: true, // Ensure cookies are sent only over HTTPS
+            },
+        },
+    },
+    ////
+
     callbacks: {
         async jwt({ token, profile, account }) {
             if (profile) {
