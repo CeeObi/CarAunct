@@ -12,12 +12,12 @@ const authOptions: NextAuthOptions = {
             id: "id-server",
             clientId: "nextApp",
             clientSecret: "secret", // Ensure this is secured and not hard-coded in production
-            wellKnown: "https://idnttyy-svc-latest.onrender.com/.well-known/openid-configuration", // process.env.ID_URL + "/.well-known/openid-configuration", // Discovery document URL
-            issuer: "https://idnttyy-svc-latest.onrender.com", // process.env.ID_URL, // Identity Server URL
+            wellKnown: process.env.ID_URL + "/.well-known/openid-configuration", //"http://localhost:5000/.well-known/openid-configuration",  // Discovery document URL
+            issuer: process.env.ID_URL, // "http://localhost:5000", Identity Server URL
             authorization: {
                 params: {
                     scope: "openid profile auctionApp", // Ensure these scopes are allowed in IdentityServer
-                    redirect_uri: "https://carsbidi.onrender.com/api/auth/callback/id-server", //" process.env.CLIENT_APP + "/api/auth/callback/id-server", // Should match your IdentityServer configuration
+                    redirect_uri: process.env.CLIENT_APP + "/api/auth/callback/id-server", // "http://localhost:3000/api/auth/callback/id-server", Should match your IdentityServer configuration
                 },
             },
             idToken: true, // Setting to true if you need ID token

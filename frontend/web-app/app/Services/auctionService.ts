@@ -1,6 +1,6 @@
 "use server";
-const searchUrl = "https://search-svc.onrender.com/api/"; // process.env.SEARCH_URL;
-const auctionUrl = "https://auctn-svc.onrender.com/api/"; // process.env.AUCTION_URL;
+const searchUrl = process.env.SEARCH_URL; //"https://search-svc.onrender.com/api/";
+const auctionUrl = process.env.AUCTION_URL; //"https://auctn-svc.onrender.com/api/";
 const bidUrl = process.env.BID_URL;
 
 import { Auction, Bid, PagedResult } from "@/types";
