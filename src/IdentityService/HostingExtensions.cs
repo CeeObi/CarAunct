@@ -33,6 +33,7 @@ internal static class HostingExtensions
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
+                options.IssuerUri = builder.Configuration["IssuerUri"];
 
                 if (builder.Environment.IsEnvironment("Docker"))
                 {
@@ -110,9 +111,13 @@ internal static class HostingExtensions
 
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
+        app.UseHsts();//forces browser to enable https for all requests and responses.
+        app.UseHttpsRedirection();//informs the browser to use https
         app.UseSerilogRequestLogging();
-    
+        
+        
+
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
