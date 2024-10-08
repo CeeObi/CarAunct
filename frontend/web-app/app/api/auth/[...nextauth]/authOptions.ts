@@ -85,7 +85,7 @@ const authOptions: NextAuthOptions = {
             name: `__Secure-next-auth.callback-url`,
             options: {
                 sameSite: "none",
-                secure: false, // Ensure cookies are sent only over HTTPS
+                secure: true, // Ensure cookies are sent only over HTTPS
             },
         },
         // csrfToken: {
