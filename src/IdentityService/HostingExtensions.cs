@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityService;
 
@@ -45,7 +46,9 @@ internal static class HostingExtensions
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients(builder.Configuration))
             .AddAspNetIdentity<ApplicationUser>()
-            .AddProfileService<CustomProfileService>();
+            .AddProfileService<CustomProfileService>()
+            //.AddSigningCredential(new X509Certificate2("path_to_certificate.pfx", "password"))
+            ;
 
 
 
@@ -109,7 +112,6 @@ internal static class HostingExtensions
     public static WebApplication ConfigurePipeline(this WebApplication app)
     { 
         app.UseSerilogRequestLogging();
-        app.UseCors("AllowSpecificOrigin");
     
         if (app.Environment.IsDevelopment())
         {
@@ -118,6 +120,7 @@ internal static class HostingExtensions
 
         app.UseStaticFiles();
         app.UseRouting();
+        app.UseCors("AllowSpecificOrigin");
         app.UseAuthentication();
         app.UseIdentityServer();
         app.UseAuthorization();
