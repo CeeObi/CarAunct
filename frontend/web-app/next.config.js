@@ -13,16 +13,6 @@ const nextConfig = {
         NEXTAUTH_URL: process.env.CLIENT_APP, // "http://localhost:3000"
     },
     reactStrictMode: false,
-    async redirects() {
-        return [
-            {
-                source: "/(.*)",
-                has: [{ type: "host", value: "^(?!localhost).*" }],
-                destination: "https://carsbidi.onrender.com/:path*",
-                permanent: true,
-            },
-        ];
-    },
 };
 
 module.exports = nextConfig;
