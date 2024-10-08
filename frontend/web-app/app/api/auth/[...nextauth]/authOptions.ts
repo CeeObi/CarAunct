@@ -117,9 +117,12 @@ const authOptions: NextAuthOptions = {
         },
         async redirect({ url, baseUrl }) {
             console.log("*******************");
-            console.log("---->>> Redirect callback:", url, baseUrl);
+            console.log("---->>> Redirect callback: ", url, baseUrl);
             console.log("*******************");
-            return url.startsWith(baseUrl) ? url : baseUrl;
+            var redirectUrl = url.startsWith(baseUrl) ? url : baseUrl;
+            redirectUrl = redirectUrl.split("//")[1];
+            console.log(`--->>Modified Redirect callback: ${redirectUrl}`);
+            return process.env.APP_PROTOCOL + redirectUrl;
         },
     },
 
