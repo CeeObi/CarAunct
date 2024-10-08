@@ -17,24 +17,8 @@ const nextConfig = {
         return [
             {
                 source: "/(.*)",
-                has: [
-                    {
-                        type: "host",
-                        value: "^(?!localhost).*", // Matches all hosts except localhost
-                    },
-                ],
-                destination: "https://carsbidi.onrender.com/:path*", // Redirect to HTTPS in production
-                permanent: true,
-            },
-            {
-                source: "/(.*)",
-                has: [
-                    {
-                        type: "host",
-                        value: "localhost", // Matches localhost for development
-                    },
-                ],
-                destination: "https://localhost:3000/:path*", // Redirect to HTTPS for localhost
+                has: [{ type: "host", value: "^(?!localhost).*" }],
+                destination: "https://carsbidi.onrender.com/:path*",
                 permanent: true,
             },
         ];
