@@ -1,6 +1,11 @@
 import { NextAuthOptions } from "next-auth";
 import DuendeIdentityServer6 from "next-auth/providers/duende-identity-server6";
 import GithubProvider from "next-auth/providers/github";
+import https from "https";
+
+const agent = new https.Agent({
+    rejectUnauthorized: false, // Allow self-signed certificates (use in development only)
+});
 
 const authOptions: NextAuthOptions = {
     session: {
@@ -14,6 +19,9 @@ const authOptions: NextAuthOptions = {
             clientSecret: `${process.env.CLIENT_SECRET}`, // "serversecret", - Ensure this is secured and not hard-coded in production
             wellKnown: process.env.ID_URL + "/.well-known/openid-configuration", //"http://localhost:5000/.well-known/openid-configuration",  // Discovery document URL
             issuer: process.env.ID_URL, // "http://localhost:5000", Identity Server URL
+            httpOptions: {
+                agent, // Use the httpsAgent
+            },
             authorization: {
                 params: {
                     scope: "openid profile auctionApp", // Ensure these scopes are allowed in IdentityServer
