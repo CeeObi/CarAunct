@@ -22,6 +22,7 @@ const authOptions: NextAuthOptions = {
             httpOptions: {
                 agent, // Use the httpsAgent
             },
+            accessTokenUrl: `${process.env.ID_URL}/connect/token`,
             authorization: {
                 url: `${process.env.ID_URL}/connect/authorize`, // Authorization URL
                 params: {
@@ -120,11 +121,13 @@ const authOptions: NextAuthOptions = {
         async redirect({ url, baseUrl }) {
             console.log("*******************");
             console.log("---->>> Redirect callback: ", url, baseUrl);
+            console.log(`--->>*******: ${process.env.ID_URL}/connect/authorize`);
+
             console.log("*******************");
             var redirectUrl = url.startsWith(baseUrl) ? url : baseUrl;
-            redirectUrl = redirectUrl.split("//")[1];
+            redirectUrl = process.env.APP_PROTOCOL + redirectUrl.split("//")[1];
             console.log(`--->>Modified Redirect callback: ${redirectUrl}`);
-            return process.env.APP_PROTOCOL + redirectUrl;
+            return redirectUrl;
         },
     },
 
