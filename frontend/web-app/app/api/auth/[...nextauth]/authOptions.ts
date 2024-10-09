@@ -4,7 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import https from "https";
 
 const agent = new https.Agent({
-    rejectUnauthorized: true, // Allow self-signed certificates (use in development only)
+    rejectUnauthorized: false, // Allow self-signed certificates (use in development only)
 });
 
 const authOptions: NextAuthOptions = {
@@ -22,9 +22,8 @@ const authOptions: NextAuthOptions = {
             httpOptions: {
                 agent, // Use the httpsAgent
             },
-            accessTokenUrl: `${process.env.ID_URL}/connect/token`,
             authorization: {
-                url: `${process.env.ID_URL}/connect/authorize`, // Authorization URL
+                // url: `${process.env.ID_URL}/connect/authorize`, // Authorization URL
                 params: {
                     scope: "openid profile auctionApp", // Ensure these scopes are allowed in IdentityServer
                     redirect_uri: process.env.CLIENT_APP + "/api/auth/callback/id-server", // "http://localhost:3000/api/auth/callback/id-server", Should match your IdentityServer configuration
@@ -71,7 +70,6 @@ const authOptions: NextAuthOptions = {
         // },
         // })
     ],
-    useSecureCookies: true,
 
     //Set cookies
     cookies: {
@@ -87,7 +85,7 @@ const authOptions: NextAuthOptions = {
             name: `__Secure-next-auth.callback-url`,
             options: {
                 sameSite: "none",
-                secure: true, // Ensure cookies are sent only over HTTPS
+                secure: false, // Ensure cookies are sent only over HTTPS
             },
         },
         // csrfToken: {
@@ -121,13 +119,11 @@ const authOptions: NextAuthOptions = {
         async redirect({ url, baseUrl }) {
             console.log("*******************");
             console.log("---->>> Redirect callback: ", url, baseUrl);
-            console.log(`--->>*******: ${process.env.ID_URL}/connect/authorize`);
-
             console.log("*******************");
             var redirectUrl = url.startsWith(baseUrl) ? url : baseUrl;
-            redirectUrl = process.env.APP_PROTOCOL + redirectUrl.split("//")[1];
+            redirectUrl = redirectUrl.split("//")[1];
             console.log(`--->>Modified Redirect callback: ${redirectUrl}`);
-            return redirectUrl;
+            return process.env.APP_PROTOCOL + redirectUrl;
         },
     },
 
