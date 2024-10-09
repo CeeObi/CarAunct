@@ -70,6 +70,7 @@ const authOptions: NextAuthOptions = {
         // },
         // })
     ],
+    useSecureCookies: true,
 
     //Set cookies
     cookies: {
