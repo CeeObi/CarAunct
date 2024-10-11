@@ -4,7 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import https from "https";
 
 const agent = new https.Agent({
-    rejectUnauthorized: true, // Allow self-signed certificates (use in development only)
+    rejectUnauthorized: false, // Allow self-signed certificates (use in development only)
 });
 
 const authOptions: NextAuthOptions = {
