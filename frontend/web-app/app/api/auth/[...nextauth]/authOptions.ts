@@ -18,7 +18,7 @@ const authOptions: NextAuthOptions = {
             clientId: "nextApp",
             clientSecret: "secret", //`${process.env.CLIENT_SECRET}`, // "serversecret", - Ensure this is secured and not hard-coded in production
             wellKnown: "https://idnttyy-svc-latest.onrender.com/.well-known/openid-configuration", // process.env.ID_URL + "/.well-known/openid-configuration", //"http://localhost:5000/.well-known/openid-configuration",  // Discovery document URL
-            issuer: "https://idnttyy-svc-latest.onrender.com", // process.env.ID_URL, // "http://localhost:5000", Identity Server URL
+            issuer: process.env.ID_URL, // "http://localhost:5000", Identity Server URL
             httpOptions: {
                 agent, // Use the httpsAgent
             },
