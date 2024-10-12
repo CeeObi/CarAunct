@@ -10,7 +10,7 @@ const nextConfig = {
 
     env: {
         NEXTAUTH_SECRET: process.env.CLIENT_SECRET, // "secret"
-        NEXTAUTH_URL: "http://localhost:3000",
+        NEXTAUTH_URL: process.env.CLIENT_APP,
     },
     reactStrictMode: false,
 };
