@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace SearchService.Controllers;
 
 [ApiController]
-[Route("/api")]
+[Route("/")]
 public class SearchHome : ControllerBase
 {
 

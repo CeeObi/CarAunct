@@ -1,5 +1,6 @@
 using System.Net;
 using MassTransit;
+using Microsoft.AspNetCore.HttpOverrides;
 using Polly;
 using Polly.Extensions.Http;
 using SearchService.Consumer;
@@ -64,6 +65,14 @@ builder.Services.AddMassTransit(x =>
 
 
 var app = builder.Build();
+// Enable forwarded headers to support reverse proxies (like Render)
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+
+app.UseHsts();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
