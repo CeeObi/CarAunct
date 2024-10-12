@@ -2,6 +2,7 @@ using Duende.IdentityServer;
 using IdentityService.Data;
 using IdentityService.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -112,7 +113,13 @@ internal static class HostingExtensions
 
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
+        // Enable forwarded headers to support reverse proxies (like Render)
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        });
+
         app.UseHsts();
         app.UseHttpsRedirection();
         app.UseSerilogRequestLogging();
