@@ -18,21 +18,21 @@ const authOptions: NextAuthOptions = {
             clientId: "nextApp",
             // authorization: 'https://idnttyy-svc-latest.onrender.com/connect/authorize',
             clientSecret: `secret`, // "serversecret", - Ensure this is secured and not hard-coded in production
-            wellKnown: "https://localhost:7180/.well-known/openid-configuration", //"http://localhost:5000/.well-known/openid-configuration",  // Discovery document URL
-            issuer: "https://localhost:7180", // "http://localhost:5000", Identity Server URL
+            wellKnown: "https://idnttyy-svc-latest.onrender.com/.well-known/openid-configuration", //"http://localhost:5000/.well-known/openid-configuration",  // Discovery document URL
+            issuer: "https://idnttyy-svc-latest.onrender.com", // "http://localhost:5000", Identity Server URL
             httpOptions: {
                 agent, // Use the httpsAgent
             },
-            userinfo: "https://localhost:7180/connect/userinfo",
+            userinfo: "https://idnttyy-svc-latest.onrender.com/connect/userinfo",
             authorization: {
                 // url: `${process.env.ID_URL}/connect/authorize`, // Authorization URL
-                url: "https://localhost:7180/connect/authorize",
+                url: "https://idnttyy-svc-latest.onrender.com/connect/authorize",
                 params: {
                     scope: "openid profile auctionApp", // Ensure these scopes are allowed in IdentityServer
-                    redirect_uri: "http://localhost:3000/api/auth/callback/id-server", //Should match your IdentityServer configuration
+                    redirect_uri: "https://carsbidi.onrender.com/api/auth/callback/id-server", //Should match your IdentityServer configuration
                 },
             },
-            token: "https://localhost:7180/connect/token",
+            token: "https://idnttyy-svc-latest.onrender.com/connect/token",
             idToken: true, // Setting to true if you need ID token
         }),
 
