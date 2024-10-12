@@ -17,5 +17,5 @@ export function middleware(request: { nextUrl: { clone: () => any }; headers: { 
 }
 
 export const config = {
-    matcher: ["/api/*"],
+    matcher: ["/*"],
 };
