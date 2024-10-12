@@ -26,7 +26,7 @@ const authOptions: NextAuthOptions = {
                 // url: `${process.env.ID_URL}/connect/authorize`, // Authorization URL
                 params: {
                     scope: "openid profile auctionApp", // Ensure these scopes are allowed in IdentityServer
-                    redirect_uri: process.env.CLIENT_APP + "/api/auth/callback/id-server", // "http://localhost:3000/api/auth/callback/id-server", Should match your IdentityServer configuration
+                    redirect_uri: "http://localhost:3000/api/auth/callback/id-server", //Should match your IdentityServer configuration
                 },
             },
             idToken: true, // Setting to true if you need ID token
