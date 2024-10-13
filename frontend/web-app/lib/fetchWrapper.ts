@@ -3,24 +3,22 @@ import axios from "axios";
 
 // const baseUrl = process.env.API_URL;
 
-async function get(url: string, retries = 7, backoff = 3000) {
+async function get(url: string, retries = 4, backoff = 2000) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
+
     const requestOptions = {
         method: "GET",
         headers: await getHeaders(),
+        signal: controller.signal,
     };
     for (let attempt = 0; attempt < retries; attempt++) {
         var res;
         try {
             // const response = await fetch(baseUrl + url, requestOptions);
             const response = await fetch(url, requestOptions);
-            console.log("fetch is:", response);
-            const customFetch = axios.create(); //{
-            //     baseURL: baseUrl,
-            // });
-            // const resp = customFetch(baseUrl + url, requestOptions);
-            const resp = await customFetch(url, requestOptions);
-            console.log("axios", resp);
-
+            clearTimeout(timeoutId);
+            // console.log("fetch is:", response);
             res = response;
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -125,6 +123,7 @@ async function del(url: string, retries = 5, backoff = 3000) {
 async function getHeaders() {
     const token = await getTokenWorkAround();
     const headers = {
+        Host: process.env.CLIENT_APP,
         "Content-Type": "application/json",
         Accept: "application/json",
         "User-Agent": "PostmanRuntime/7.39.0",
