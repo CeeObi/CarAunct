@@ -1,4 +1,3 @@
-"use server";
 import { NextAuthOptions } from "next-auth";
 import DuendeIdentityServer6 from "next-auth/providers/duende-identity-server6";
 import GithubProvider from "next-auth/providers/github";
