@@ -1,3 +1,4 @@
+"use server";
 import { getTokenWorkAround } from "@/app/Services/authService";
 import axios from "axios";
 
