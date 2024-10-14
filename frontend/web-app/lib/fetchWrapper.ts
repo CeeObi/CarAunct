@@ -4,49 +4,32 @@ import axios from "axios";
 // const baseUrl = process.env.API_URL;
 
 async function get(url: string, retries = 4, backoff = 2000) {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 120000);
-
     const requestOptions = {
         method: "GET",
         headers: await getHeaders(),
+        timeout: 120000,
     };
-
-    let attempt = 0;
-
-    const makeRequest = () => {
-        return new Promise((resolve, reject) => {
-            // Set up a timeout to handle request timeouts
-            const timeoutId = setTimeout(() => {
-                reject(new Error("Request timed out"));
-            }, 5000); // Set timeout to 5 seconds
-
-            fetch(url, requestOptions)
-                .then((response) => {
-                    clearTimeout(timeoutId); // Clear timeout when response is received
-                    console.log(response);
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    resolve(handleResponse(response));
-                })
-                .catch((error) => {
-                    clearTimeout(timeoutId);
-                    if (attempt < retries - 1) {
-                        attempt++;
-                        console.log(`Attempt ${attempt} failed. Retrying in ${backoff}ms...`);
-                        setTimeout(() => {
-                            backoff *= 2; // Exponential backoff
-                            resolve(makeRequest()); // Retry the request after backoff period
-                        }, backoff);
-                    } else {
-                        reject(error); // Fail after maximum retries
-                    }
-                });
-        });
-    };
-    return makeRequest();
+    for (let attempt = 0; attempt < retries; attempt++) {
+        var res;
+        try {
+            // const response = await fetch(baseUrl + url, requestOptions);
+            const response = await fetch(url, requestOptions);
+            // console.log("fetch is:", response);
+            res = response;
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await handleResponse(response);
+        } catch (error) {
+            if (attempt < retries - 1) {
+                console.log(`Attempt ${attempt + 1} failed. Retrying in ${backoff}ms...`);
+                await new Promise((resolve) => setTimeout(resolve, backoff));
+                backoff *= 2; // Exponential backoff
+            } else {
+                return res;
+            }
+        }
+    }
 }
 
 async function post(url: string, body: {}, retries = 5, backoff = 3000) {

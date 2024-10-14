@@ -30,18 +30,29 @@ function Listings() {
 
     const setParams = useParamsStore((state) => state.setParams);
     const queryStringParameters = qs.stringifyUrl({ url: "", query: params }); //only query parameters with no url - using query-string libray to convert object to querystring
-    console.log(queryStringParameters);
 
     function setPageNumber(pageNumber: number) {
         setParams({ pageNumber });
     }
 
     useEffect(() => {
-        getData(queryStringParameters).then((gottenData) => {
-            console.log("GOTTENdatA", gottenData);
-            setData(gottenData);
-            setLoading(false);
-        });
+        // getData(queryStringParameters).then((gottenData) => {
+        //     setData(gottenData);
+        //     setLoading(false);
+        // });
+
+        // Define the async function inside useEffect -- same as above then approach
+        const fetchData = async (queryStringParameters: string) => {
+            try {
+                const gottenData = await getData(queryStringParameters);
+                setData(gottenData);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+        // Call the async function
+        fetchData(queryStringParameters);
     }, [queryStringParameters, setData]);
 
     if (loading) {
