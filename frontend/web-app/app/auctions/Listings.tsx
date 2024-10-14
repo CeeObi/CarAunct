@@ -38,6 +38,7 @@ function Listings() {
 
     useEffect(() => {
         getData(queryStringParameters).then((gottenData) => {
+            console.log("GOTTENdatA", gottenData);
             setData(gottenData);
             setLoading(false);
         });

@@ -20,6 +20,7 @@ type Actions = {
     setSearchValue: (searchValue: string) => void
 }
 
+
 const initialState = {
     pageSize: 12,
     pageCount: 1,
