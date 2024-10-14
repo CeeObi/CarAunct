@@ -5,11 +5,13 @@ import AppPagination from "../components/AppPagination";
 import { Auction, PagedResult } from "@/types";
 import React, { useEffect, useState } from "react";
 import { getData } from "../Services/auctionService";
+import { startService } from "../Services/startServices";
 import Filters from "./Filters";
 import { useParamsStore } from "../hooks/useParamsStore";
 import qs from "query-string";
 import EmptyFilter from "../components/EmptyFilter";
 import useActionStore from "../hooks/useAuctionStore";
+import { Button } from "flowbite-react";
 
 function Listings() {
     // const [data,setData] = useState<PagedResult<Auction>>();
@@ -55,8 +57,19 @@ function Listings() {
         fetchData(queryStringParameters);
     }, [queryStringParameters, setData]);
 
+    function handleRestartServices() {
+        startService();
+    }
+
     if (loading) {
-        return <h3>Loading...</h3>;
+        return (
+            <>
+                <h3>Loading...</h3>
+                <Button outline onClick={handleRestartServices}>
+                    Restart Services
+                </Button>
+            </>
+        );
     }
 
     return (
