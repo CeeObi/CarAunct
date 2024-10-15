@@ -31,10 +31,6 @@ function EmptyFilter({
         setButtonLoading(true);
     }
 
-    function handleRestartServices() {
-        throw new Error("Function not implemented.");
-    }
-
     return (
         <div className="h-[40vh] flex flex-col gap-2 justify-center items-center shadow-lg">
             <Headings title={title} subtitle={subtitle} center />
