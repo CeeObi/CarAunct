@@ -1,6 +1,7 @@
 "use client";
 
 import AuctionCard from "./AuctionCard";
+import { Spinner } from "flowbite-react";
 import AppPagination from "../components/AppPagination";
 import { Auction, PagedResult } from "@/types";
 import React, { useEffect, useState } from "react";
@@ -62,15 +63,20 @@ function Listings() {
         startIDService();
     }
 
-    if (loading) {
+    if (!loading) {
         return (
-            <>
-                <h3>Loading...</h3>
-                <Button outline onClick={handleRestartServices}>
-                    Restart Services
-                </Button>
+            <div className="flex justify-center">
+                <div>
+                    <div className="flex justify-center px-2 my-2">
+                        <span className="text-center mr-2">Loading</span>
+                        <Spinner color="info" aria-label="Info spinner example" />
+                    </div>
+                    <Button outline onClick={handleRestartServices}>
+                        Restart Services
+                    </Button>
+                </div>
                 {/* <a href="https://search-svc.onrender.com">Restart</a> */}
-            </>
+            </div>
         );
     }
 

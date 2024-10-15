@@ -35,7 +35,7 @@ export async function startIDService() {
         "cache-control": "no-cache",
         pragma: "no-cache",
         dnt: "1",
-        referer: "https://idnttyy-svc-latest.onrender.com",
+        referer: "https://carsbidi.onrender.com/",
         "sec-ch-ua": '"Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"',
         "sec-ch-ua-mobile": "?0",
         "sec-ch-ua-platform": '"Windows"',
