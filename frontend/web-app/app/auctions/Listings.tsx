@@ -17,6 +17,7 @@ import { Button } from "flowbite-react";
 function Listings() {
     // const [data,setData] = useState<PagedResult<Auction>>();
     const [loading, setLoading] = useState(true);
+    const [buttonLoading, setButtonLoading] = useState(false);
 
     const params = useParamsStore((state) => ({
         pageSize: state.pageSize,
@@ -61,9 +62,10 @@ function Listings() {
     function handleRestartServices() {
         startSearchService();
         startIDService();
+        setButtonLoading(true);
     }
 
-    if (!loading) {
+    if (loading) {
         return (
             <div className="flex justify-center">
                 <div>
@@ -72,7 +74,8 @@ function Listings() {
                         <Spinner color="info" aria-label="Info spinner example" />
                     </div>
                     <Button outline onClick={handleRestartServices}>
-                        Restart Services
+                        <span>Restart Services</span>
+                        {buttonLoading && <Spinner color="info" aria-label="Info spinner example" />}
                     </Button>
                 </div>
                 {/* <a href="https://search-svc.onrender.com">Restart</a> */}

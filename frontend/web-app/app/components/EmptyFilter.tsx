@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useParamsStore } from "../hooks/useParamsStore";
 import Headings from "./Headings";
-import { Button } from "flowbite-react";
+import { Button, Spinner } from "flowbite-react";
 import { FaGithub } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import { RiLoginBoxLine } from "react-icons/ri";
+import { startIDService } from "../Services/startServices";
 
 type Props = {
     title?: string;
@@ -23,6 +24,16 @@ function EmptyFilter({
     callbackUrl,
 }: Props) {
     const reset = useParamsStore((state) => state.reset);
+    const [buttonLoading, setButtonLoading] = useState(false);
+
+    function handleStartID() {
+        startIDService();
+        setButtonLoading(true);
+    }
+
+    function handleRestartServices() {
+        throw new Error("Function not implemented.");
+    }
 
     return (
         <div className="h-[40vh] flex flex-col gap-2 justify-center items-center shadow-lg">
@@ -35,13 +46,26 @@ function EmptyFilter({
                 )}
                 {showLogin && (
                     <>
-                        <Button className="mx-auto my-3" outline onClick={() => signIn("id-server", { callbackUrl })}>
+                        <Button
+                            className="mx-auto my-3"
+                            outline
+                            onClick={() => {
+                                signIn("id-server", { callbackUrl });
+                                handleStartID();
+                            }}
+                        >
                             <RiLoginBoxLine className="m-1" /> Login
                         </Button>
                         <Button className="" outline onClick={() => signIn("github")}>
                             <FaGithub className="m-1" />
                             Signin with Github
                         </Button>
+                        <a href="https://idnttyy-svc-latest.onrender.com">
+                            <Button onClick={() => setButtonLoading(true)}>
+                                <span>Start Identity Service</span>
+                                {buttonLoading && <Spinner color="info" aria-label="Info spinner example" />}
+                            </Button>
+                        </a>
                     </>
                 )}
             </div>
