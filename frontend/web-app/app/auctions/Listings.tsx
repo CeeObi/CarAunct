@@ -65,9 +65,9 @@ function Listings() {
         return (
             <>
                 <h3>Loading...</h3>
-                <Button outline onClick={handleRestartServices}>
+                <button className="outline" onClick={handleRestartServices}>
                     Restart Services
-                </Button>
+                </button>
             </>
         );
     }
