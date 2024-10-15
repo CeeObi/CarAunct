@@ -10,7 +10,7 @@ const nextConfig = {
 
     env: {
         NEXTAUTH_SECRET: process.env.CLIENT_SECRET, // "secret"
-        NEXTAUTH_URL: "https://carsbidi.onrender.com",
+        NEXTAUTH_URL: process.env.CLIENT_APP,
     },
     reactStrictMode: false,
 };
