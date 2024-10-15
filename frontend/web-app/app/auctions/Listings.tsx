@@ -65,9 +65,9 @@ function Listings() {
         return (
             <>
                 <h3>Loading...</h3>
-                <button className="outline" onClick={handleRestartServices}>
+                <Button outline onClick={handleRestartServices}>
                     Restart Services
-                </button>
+                </Button>
                 <a href="https://search-svc.onrender.com">Restart</a>
             </>
         );
@@ -75,7 +75,6 @@ function Listings() {
 
     return (
         <>
-            <a href="https://search-svc.onrender.com">Restart</a>
             <Filters />
             {data.totalCount === 0 ? (
                 <EmptyFilter showReset />
