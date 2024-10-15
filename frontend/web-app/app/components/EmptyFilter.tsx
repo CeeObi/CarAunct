@@ -60,8 +60,8 @@ function EmptyFilter({
                             <FaGithub className="m-1" />
                             Signin with Github
                         </Button>
-                        <a href="https://idnttyy-svc-latest.onrender.com">
-                            <Button onClick={() => setButtonLoading(true)}>
+                        <a href="https://idnttyy-svc-latest.onrender.com" target="_blank" className="my-2">
+                            <Button outline onClick={() => setButtonLoading(true)}>
                                 <span>Start Identity Service</span>
                                 {buttonLoading && <Spinner color="info" aria-label="Info spinner example" />}
                             </Button>
