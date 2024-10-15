@@ -75,6 +75,7 @@ function Listings() {
 
     return (
         <>
+            <a href="https://search-svc.onrender.com">Restart</a>
             <Filters />
             {data.totalCount === 0 ? (
                 <EmptyFilter showReset />
