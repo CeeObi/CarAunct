@@ -68,6 +68,7 @@ function Listings() {
                 <button className="outline" onClick={handleRestartServices}>
                     Restart Services
                 </button>
+                <a href="https://search-svc.onrender.com">Restart</a>
             </>
         );
     }
