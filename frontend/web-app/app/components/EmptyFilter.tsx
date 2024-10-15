@@ -3,6 +3,7 @@ import React from "react";
 import { useParamsStore } from "../hooks/useParamsStore";
 import Headings from "./Headings";
 import { Button } from "flowbite-react";
+import { startIDService } from "../Services/startServices";
 import { FaGithub } from "react-icons/fa";
 import { signIn } from "next-auth/react";
 import { RiLoginBoxLine } from "react-icons/ri";
@@ -24,7 +25,10 @@ function EmptyFilter({
 }: Props) {
     const reset = useParamsStore((state) => state.reset);
 
-    console.log(callbackUrl);
+    function wakeServer() {
+        startIDService();
+    }
+
     return (
         <div className="h-[40vh] flex flex-col gap-2 justify-center items-center shadow-lg">
             <Headings title={title} subtitle={subtitle} center />
@@ -36,7 +40,14 @@ function EmptyFilter({
                 )}
                 {showLogin && (
                     <>
-                        <Button className="mx-auto my-3" outline onClick={() => signIn("id-server", { callbackUrl })}>
+                        <Button
+                            className="mx-auto my-3"
+                            outline
+                            onClick={() => {
+                                wakeServer();
+                                signIn("id-server", { callbackUrl });
+                            }}
+                        >
                             <RiLoginBoxLine className="m-1" /> Login
                         </Button>
                         <Button className="" outline onClick={() => signIn("github")}>

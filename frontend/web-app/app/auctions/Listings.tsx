@@ -5,7 +5,7 @@ import AppPagination from "../components/AppPagination";
 import { Auction, PagedResult } from "@/types";
 import React, { useEffect, useState } from "react";
 import { getData } from "../Services/auctionService";
-import { startService } from "../Services/startServices";
+import { startIDService, startSearchService } from "../Services/startServices";
 import Filters from "./Filters";
 import { useParamsStore } from "../hooks/useParamsStore";
 import qs from "query-string";
@@ -58,7 +58,8 @@ function Listings() {
     }, [queryStringParameters, setData]);
 
     function handleRestartServices() {
-        startService();
+        startSearchService();
+        startIDService();
     }
 
     if (loading) {
@@ -68,7 +69,7 @@ function Listings() {
                 <Button outline onClick={handleRestartServices}>
                     Restart Services
                 </Button>
-                <a href="https://search-svc.onrender.com">Restart</a>
+                {/* <a href="https://search-svc.onrender.com">Restart</a> */}
             </>
         );
     }
