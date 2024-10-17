@@ -22,9 +22,6 @@ const authOptions: NextAuthOptions = {
             issuer: process.env.ID_URL, // "http://localhost:5000", Identity Server URL
             httpOptions: {
                 agent, // Use the httpsAgent
-                headers: {
-                    Host: process.env.CLIENT_APP, // Custom Host header
-                },
             },
             userinfo: process.env.ID_URL + "/connect/userinfo",
             authorization: {
