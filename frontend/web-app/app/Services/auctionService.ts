@@ -10,45 +10,45 @@ import { revalidatePath } from "next/cache";
 
 //Get data from search api
 export async function getData(query: string): Promise<PagedResult<Auction>> {
-    return await get(`${searchUrl}search/${query}`);
+    return await get(`${searchUrl}/api/search/${query}`);
 }
 
 //action TEST update
 export async function updateAuctionTest() {
     const data = { mileage: Math.floor(Math.random() * 100000) + 1 };
     // return await put("auctions/afbee524-5972-4075-8800-7d1f9d7b0a0c", data)
-    return await put(`${auctionUrl}auctions/afbee524-5972-4075-8800-7d1f9d7b0a0c`, data);
+    return await put(`${auctionUrl}/api/auctions/afbee524-5972-4075-8800-7d1f9d7b0a0c`, data);
 }
 
 //Create new auction
 export async function createAuction(data: FieldValues) {
-    return await post(`${auctionUrl}auctions`, data);
+    return await post(`${auctionUrl}/api/auctions`, data);
 }
 
 //update auction
 export async function updateAuction(id: string, data: FieldValues) {
-    const res = await put(`${auctionUrl}auctions/${id}`, data);
-    revalidatePath(`${auctionUrl}auctions/${id}`);
+    const res = await put(`${auctionUrl}/api/auctions/${id}`, data);
+    revalidatePath(`${auctionUrl}/api/auctions/${id}`);
     return res;
 }
 
 //delete auction
 export async function deleteAuction(id: string) {
-    const res = await del(`${auctionUrl}auctions/${id}`);
+    const res = await del(`${auctionUrl}/api/auctions/${id}`);
     return res;
 }
 
 //get auction details
 export async function getDetailedAuction(id: string): Promise<Auction> {
-    return await get(`${auctionUrl}auctions/${id}`);
+    return await get(`${auctionUrl}/api/auctions/${id}`);
 }
 
 //get bids
 export async function getBidsForAuctions(id: string): Promise<Bid[]> {
-    return await get(`${bidUrl}bids/${id}`);
+    return await get(`${bidUrl}/api/bids/${id}`);
 }
 
 //place bids
 export async function placeBidsForAuctions(auctionId: string, amount: number) {
-    return await post(`${bidUrl}bids?auctionId=${auctionId}&amount=${amount}`, {});
+    return await post(`${bidUrl}/api/bids?auctionId=${auctionId}&amount=${amount}`, {});
 }
