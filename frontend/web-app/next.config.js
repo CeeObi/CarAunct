@@ -3,7 +3,7 @@ const nextConfig = {
     //     experimental:{
     //         serverActions:true,
     //     },
-    output: "standalone",
+    output: "export",
     images: {
         domains: ["cdn.pixabay.com", "media.istockphoto.com", "carma.com.au", "carsales.pxcrush.net"],
     },
