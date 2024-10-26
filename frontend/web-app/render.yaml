@@ -1,0 +1,45 @@
+services:
+# - type: web
+#   name: next-js
+#   runtime: node
+#   plan: starter
+#   buildCommand: yarn; yarn build
+#   startCommand: yarn start
+#   autoDeploy: false
+#   envVars:
+#   - key: NODE_ENV
+#     value: production
+# Uncomment the following to deploy this app as a static site on render
+- type: web
+  name: nextjs-static
+  runtime: static
+  buildCommand: yarn; yarn build
+  staticPublishPath: out
+  pullRequestPreviewsEnabled: true     # optional
+  envVars:
+  - key: NODE_ENV
+    value: production
+  - key: API_URL
+    value: https://gatwy-svc.onrender.com/
+  - key: APP_PROTOCOL
+    value: https://
+  - key: AUCTION_URL
+    value: https://auctn-svc.onrender.com
+  - key: BID_URL
+    value: https://bid-svc.onrender.com
+  - key: CLIENT_APP
+    value: https://carsbidi.onrender.com
+  - key: CLIENT_SECRET
+    value: secret
+  - key: SEARCH_URL
+    value: https://search-svc.onrender.com
+  - key: ID_URL
+    value: https://idnttyy-svc-latest.onrender.com
+  - key: NOTIFY_URL
+    value: https://notify-4gws.onrender.com
+  - key: GITHUB_CLIENT_ID
+    value: Ov23liyzusdKTLfLF4o6
+  - key: GITHUB_CLIENT_SECRET
+    value: ee27356fa4f822432322d6e0735238d465d158c4
+
+    
