@@ -25,12 +25,12 @@ const authOptions: NextAuthOptions = {
             },
             userinfo: process.env.ID_URL + "/connect/userinfo",
             authorization: {
-                // url: `${process.env.ID_URL}/connect/authorize`, // Authorization URL
-                url: process.env.ID_URL + "/connect/authorize",
                 params: {
                     scope: "openid profile auctionApp", // Ensure these scopes are allowed in IdentityServer
                     redirect_uri: process.env.CLIENT_APP + "/api/auth/callback/id-server", //Should match your IdentityServer configuration
                 },
+                // url: `${process.env.ID_URL}/connect/authorize`, // Authorization URL
+                url: "https://identity-svc-h7fbcjcjfvc7eygb.australiaeast-01.azurewebsites.net/connect/authorize", // process.env.ID_URL + "/connect/authorize",
             },
             token: process.env.ID_URL + "/connect/token",
             idToken: true, // Setting to true if you need ID token
@@ -126,7 +126,6 @@ const authOptions: NextAuthOptions = {
             console.log("*******************");
             var redirectUrl = url.startsWith(baseUrl) ? url : baseUrl;
             redirectUrl = redirectUrl.split("//")[1];
-            console.log(`--->>Modified Redirect callback: ${redirectUrl}`);
             return process.env.APP_PROTOCOL + redirectUrl;
         },
     },

@@ -13,6 +13,9 @@ const nextConfig = {
         NEXTAUTH_URL: process.env.CLIENT_APP,
     },
     reactStrictMode: false,
+    publicRuntimeConfig: {
+        protocol: "https",
+    },
 };
 
 module.exports = nextConfig;

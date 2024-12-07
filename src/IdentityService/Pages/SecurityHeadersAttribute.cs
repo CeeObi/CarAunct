@@ -40,14 +40,18 @@ public class SecurityHeadersAttribute : ActionFilterAttribute
             // and once again for IE
             if (!context.HttpContext.Response.Headers.ContainsKey("X-Content-Security-Policy"))
             {
-                context.HttpContext.Response.Headers.Add("X-Content-Security-Policy", csp);
+                context.HttpContext.Response.Headers.Add("X-Content-Security-Policy", csp);                
             }
 
             // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
             var referrer_policy = "no-referrer";
             if (!context.HttpContext.Response.Headers.ContainsKey("Referrer-Policy"))
             {
-                context.HttpContext.Response.Headers.Add("Referrer-Policy", referrer_policy);
+                context.HttpContext.Response.Headers.Add("Referrer-Policy", referrer_policy);                
+            }
+            if (!context.HttpContext.Response.Headers.ContainsKey("Strict-Transport-Security"))
+            {
+                context.HttpContext.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");               
             }
 
         }

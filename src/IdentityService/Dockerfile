@@ -1,7 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
 WORKDIR /app
 EXPOSE 80
-
 #copy all of the .csproj files and restore as distinct layer. Use of the same COPY command for every 
 #dockerfile in the project to take advantage of docker caching.
 COPY CarAunct.sln CarAunct.sln
@@ -12,15 +11,14 @@ COPY src/NotificationService/NotificationService.csproj src/NotificationService/
 COPY src/BiddingService/BiddingService.csproj src/BiddingService/BiddingService.csproj
 COPY src/IdentityService/IdentityService.csproj src/IdentityService/IdentityService.csproj
 COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
-
-
 #Restore the package dependencies
 RUN dotnet restore CarAunct.sln
-
 #Copy the app folders over
 COPY src/IdentityService src/IdentityService
 WORKDIR /app/src/IdentityService
 RUN dotnet publish -c Release -o /app/src/out
+
+
 
 #Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0.4

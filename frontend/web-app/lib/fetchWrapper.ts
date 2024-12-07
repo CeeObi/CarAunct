@@ -126,6 +126,8 @@ async function getHeaders() {
         "User-Agent": "PostmanRuntime/7.39.0",
         Connection: "keep-alive",
         "Cache-Control": "no-cache",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "x-forwarded-proto": "https",
     } as any;
     if (token) {
         headers.Authorization = `Bearer ${token.access_token}`;
