@@ -111,8 +111,14 @@ const authOptions: NextAuthOptions = {
     callbacks: {
         async jwt({ token, profile, account }) {
             if (profile) {
-                token.username = profile.username; // Store the username in the token
+                if (account?.provider === "github" && profile?.login) {
+                    // Add GitHub username to the token
+                    token.username = profile.login;
+                } else {
+                    token.username = profile.username; // Store the username in the token
+                }
             }
+
             if (account) {
                 token.access_token = account.access_token; // Store the access token
             }
@@ -125,9 +131,9 @@ const authOptions: NextAuthOptions = {
             return session; // Return the updated session
         },
         async redirect({ url, baseUrl }) {
-            console.log("*******************");
-            console.log("---->>> Redirect callback: ", url, baseUrl);
-            console.log("*******************");
+            // console.log("*******************");
+            // console.log("---->>> Redirect callback: ", url, baseUrl);
+            // console.log("*******************");
             var redirectUrl = url.startsWith(baseUrl) ? url : baseUrl;
             redirectUrl = redirectUrl.split("//")[1];
             return process.env.APP_PROTOCOL + redirectUrl;
