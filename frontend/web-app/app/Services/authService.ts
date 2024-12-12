@@ -23,6 +23,7 @@ export function getTokenWorkAround() {
             cookies()
                 .getAll()
                 .map((c) => [c.name, c.value])
+            //May need to implement "username":"xx"for github auth
         ),
     } as NextApiRequest;
 
@@ -31,5 +32,6 @@ export function getTokenWorkAround() {
 
 //get session details using nex-auth libraries
 export async function getSession() {
+    //May need to implement "username":"xx"for github auth
     return await getServerSession(authOptions);
 }

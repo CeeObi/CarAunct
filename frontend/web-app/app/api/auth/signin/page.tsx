@@ -5,7 +5,7 @@ function Page({ searchParams }: { searchParams: { callbackUrl: string } }) {
     return (
         <EmptyFilter
             title="You need to be logged in to visit this page"
-            subtitle="Please click below to sign"
+            subtitle="Please wait for 50 seconds and click below to sign"
             showLogin
             callbackUrl={searchParams.callbackUrl}
         />

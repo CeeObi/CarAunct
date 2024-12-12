@@ -5,6 +5,9 @@ import https from "https";
 
 const agent = new https.Agent({
     rejectUnauthorized: false, // Allow self-signed certificates (use in development only)
+    keepAlive: true, // Reuse TCP connections for performance
+    timeout: 50000, // Timeout for the socket (10 seconds)
+    maxSockets: 10, // Maximum concurrent connections
 });
 
 const authOptions: NextAuthOptions = {
@@ -22,6 +25,7 @@ const authOptions: NextAuthOptions = {
             issuer: process.env.ID_URL, // "http://localhost:5000", Identity Server URL
             httpOptions: {
                 agent, // Use the httpsAgent
+                timeout: 50000,
             },
             userinfo: process.env.ID_URL + "/connect/userinfo",
             authorization: {
@@ -30,7 +34,7 @@ const authOptions: NextAuthOptions = {
                     redirect_uri: process.env.CLIENT_APP + "/api/auth/callback/id-server", //Should match your IdentityServer configuration
                 },
                 // url: `${process.env.ID_URL}/connect/authorize`, // Authorization URL
-                url: "https://identity-svc-h7fbcjcjfvc7eygb.australiaeast-01.azurewebsites.net/connect/authorize", // process.env.ID_URL + "/connect/authorize",
+                url: process.env.ID_URL + "/connect/authorize",
             },
             token: process.env.ID_URL + "/connect/token",
             idToken: true, // Setting to true if you need ID token
