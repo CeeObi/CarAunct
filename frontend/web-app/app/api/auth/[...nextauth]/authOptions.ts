@@ -111,11 +111,11 @@ const authOptions: NextAuthOptions = {
     callbacks: {
         async jwt({ token, profile, account }) {
             if (profile) {
+                token.username = profile.username;
+                
                 if (account?.provider === "github" && profile?.login) {
                     // Add GitHub username to the token
                     token.username = profile.login;
-                } else {
-                    token.username = profile.username; // Store the username in the token
                 }
             }
 

@@ -46,7 +46,7 @@ function Listings() {
     }
 
     useEffect(() => {
-        startIDService();
+        // startIDService();
         // getData(queryStringParameters).then((gottenData) => {
         //     setData(gottenData);
         //     setLoading(false);
