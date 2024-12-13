@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BiddingService.Controllers;
 
 [ApiController]
-[Route("/api")]
+[Route("/")]
 public class BidHome : ControllerBase
 {
 

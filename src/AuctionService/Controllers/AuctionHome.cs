@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AuctionService.Controllers;
 
 [ApiController]
-[Route("/api")]
+[Route("/")]
 public class AuctionHome : ControllerBase
 {
 
