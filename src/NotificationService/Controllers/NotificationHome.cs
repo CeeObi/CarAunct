@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace NotificationService.Controllers;
 
 [ApiController]
-[Route("/api")]
+[Route("/")]
 public class NotificationHome : ControllerBase
 {
 

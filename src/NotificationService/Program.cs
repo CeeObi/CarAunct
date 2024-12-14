@@ -12,7 +12,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy  =>
                       {
-                          policy.WithOrigins("https://carsbidi.onrender.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                          policy.WithOrigins(builder.Configuration["WEBAPP_TO"]).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
                       });
 });
 
@@ -25,13 +25,17 @@ builder.Services.AddMassTransit(x =>
                 x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("notification",false));
                 x.UsingRabbitMq((context,cfg) =>
                 {
-                    cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host => {
-                        host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
-                        host.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
-                    });
+                    cfg.Host(new Uri(builder.Configuration["RabbitMq:Host"]));
+                    // cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host => {
+                    //     host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
+                    //     host.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
+                    // });
                     cfg.ConfigureEndpoints(context);
                 });
             });
+            
+
+
  
  
 builder.Services.AddSignalR();

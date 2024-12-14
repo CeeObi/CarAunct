@@ -200,6 +200,7 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://+:80
             - RabbitMq__Host=20.70.230.153
+            - WEBAPP_TO=http://20.70.230.153
         ports:
             - 7004:80
         networks:
@@ -229,6 +230,7 @@ services:
             - ID_REDIRECT_URL=https://carsbidi.onrender.com/api/auth/callback/id-server
             #                 https://carsbidi.onrender.com/api/auth/callback/id-server
             - NEXT_PUBLIC_NOTIFY_URL=http://20.70.255.99/notifications
+            - NOTIFICATION_URL=http://20.70.255.99/notifications
 
     #Building NGINX proxy from online registry
     nginx-proxy:

@@ -1,5 +1,6 @@
 "use client";
 import { getDetailedAuction } from "@/app/Services/auctionService";
+import { notifyAppUrl } from "@/app/Services/startServices";
 import AuctionCreatedToast from "@/app/components/AuctionCreatedToast";
 import AuctionFinishedToast from "@/app/components/AuctionFinishedToast";
 import useActionStore from "@/app/hooks/useAuctionStore";
@@ -19,17 +20,11 @@ function SignalRProvider({ children, user }: Props) {
     const [connection, setConnection] = useState<HubConnection | null>(null);
     const { setCurrentPrice } = useActionStore((state) => state);
     const { addBid } = useBidStore((state) => state);
-    const apiUrl = `${process.env.NOTIFY_URL!}` + "/notifications";
+    const apiUrl = "https://notify-svc-gqepbec6gfd4cch5.australiaeast-01.azurewebsites.net/notifications";
+    // const apiUrl = notifyAppUrl;
 
     useEffect(() => {
-        const newConnection = new HubConnectionBuilder()
-            .withUrl(apiUrl, {
-                headers: {
-                    Host: `${process.env.CLIENT_APP}`,
-                },
-            })
-            .withAutomaticReconnect()
-            .build();
+        const newConnection = new HubConnectionBuilder().withUrl(apiUrl).withAutomaticReconnect().build();
         setConnection(newConnection);
     }, [apiUrl]);
 

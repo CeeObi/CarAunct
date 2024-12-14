@@ -2,6 +2,8 @@
 
 import fetch from "node-fetch";
 
+export const notifyAppUrl = `${process.env.NOTIFICATION_URL}`;
+
 export async function startSearchService() {
     console.log("Starting Search service");
     const requestOPtions = {
