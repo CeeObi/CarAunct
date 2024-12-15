@@ -1,9 +1,10 @@
 "use client";
 import { placeBidsForAuctions } from "@/app/Services/auctionService";
+import { Spinner } from "flowbite-react";
 import { Button } from "flowbite-react";
 import useBidStore from "@/app/hooks/useBidStore";
 import { numberWithCommas } from "@/lib/numberWithComma";
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
 };
 
 function BidForm({ auctionId, highBid }: Props) {
+    const [isLoad, setIsLoad] = useState(false);
+
     const {
         register,
         handleSubmit,
@@ -21,18 +24,24 @@ function BidForm({ auctionId, highBid }: Props) {
     const { addBid } = useBidStore((state) => state);
 
     function handleOnSubmit(data: FieldValues) {
+        setIsLoad(true);
         if (data.amount <= highBid) {
+            setIsLoad(false);
             reset();
             return toast.error("Bid must be at least $" + numberWithCommas(highBid + 1));
         }
-        console.log(data);
+        // console.log(data);
         placeBidsForAuctions(auctionId, +data.amount)
             .then((bid) => {
+                setIsLoad(false);
                 if (bid.error) throw bid.error;
-                addBid(bid);
+                // addBid(bid);
                 reset();
             })
-            .catch((e) => toast.error(e.message));
+            .catch((e) => {
+                setIsLoad(false);
+                toast.error(e.message);
+            });
     }
 
     return (
@@ -45,11 +54,12 @@ function BidForm({ auctionId, highBid }: Props) {
                 min={0}
             />
             <Button
-                className="bg-green-500 px-7 hover:bg-green-700 text-neutral-200 hover:scale-105 duration-500 border-0 "
+                className="bg-green-500 px-7 hover:bg-green-700 text-neutral-200 hover:scale-105 duration-500 border-0  "
                 type="submit"
                 color="primary"
             >
-                Place Bid
+                <span className="text-center mr-2">Place Bid</span>
+                {isLoad && <Spinner color="info" aria-label="Info spinner example" />}
             </Button>
         </form>
     );
