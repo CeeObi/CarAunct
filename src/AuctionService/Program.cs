@@ -47,27 +47,13 @@ builder.Services.AddMassTransit(x =>
                     // cfg.ConfigureEndpoints(context);
                 });
             });
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer("IdentityServer", options => 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => 
 {
     options.Authority = builder.Configuration["IdentityServiceUrl"];
     options.RequireHttpsMetadata = false;
     options.TokenValidationParameters.ValidateAudience = false;
     options.TokenValidationParameters.NameClaimType = "username";
-})
-// 
-// .AddJwtBearer("GitHub",options => 
-// {
-//     options.Authority = "https://token.actions.githubusercontent.com";
-//     options.RequireHttpsMetadata = false;
-//     options.TokenValidationParameters.ValidateAudience = true;
-//     options.TokenValidationParameters.NameClaimType = "username";
-//     options.TokenValidationParametersValidAudience = builder.Configuration["GitHub:ValidAudience"];
-//     options.TokenValidationParametersValidateIssuerSigningKey = true;
-//     options.TokenValidationParametersValidateLifetime = true;
-// })
-;
-// 
+});
 
 builder.Services.AddGrpc();
 
